@@ -1,0 +1,30 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root { color-scheme: light; --wine:#701D2E; --wine-dark:#46121D; --gold:#C5A253; --sand:#E8DCC7; --cream:#F8F3E9; }
+html { scroll-behavior:smooth; }
+body { margin:0; background:var(--cream); color:#2b2022; font-family:Inter,ui-sans-serif,system-ui,sans-serif; overflow-x:hidden; }
+h1,h2,h3 { text-wrap:balance; }
+p { text-wrap:pretty; }
+a:focus-visible,button:focus-visible,summary:focus-visible { outline:3px solid var(--gold); outline-offset:4px; }
+.container-shell { width:min(1180px,calc(100% - 2rem)); margin-inline:auto; }
+.eyebrow { text-transform:uppercase; letter-spacing:.18em; font-weight:900; font-size:.72rem; color:var(--wine); }
+.btn { display:inline-flex; align-items:center; justify-content:center; min-height:46px; padding:.78rem 1.2rem; border-radius:999px; font-weight:850; transition:transform .2s ease,background .2s ease,color .2s ease; }
+.btn:hover { transform:translateY(-2px); }
+.btn-primary { background:var(--wine); color:white; } .btn-primary:hover { background:var(--wine-dark); }
+.btn-light { background:var(--cream); color:var(--wine-dark); }
+.btn-outline-light { border:1px solid rgba(255,255,255,.55); color:white; }
+.card { background:white; border:1px solid rgba(112,29,46,.12); border-radius:1.5rem; box-shadow:0 18px 40px -28px rgba(70,18,29,.45); }
+.photo-frame { position:relative; overflow:hidden; background:linear-gradient(135deg,#d9c9b3,#bda98d); }
+.photo-frame::after { content:"WOFCOG PHOTO"; position:absolute; inset:auto 1rem 1rem auto; font-size:.65rem; font-weight:900; letter-spacing:.16em; color:rgba(70,18,29,.7); }
+.cross-grid { background-image:linear-gradient(rgba(197,162,83,.09) 1px,transparent 1px),linear-gradient(90deg,rgba(197,162,83,.09) 1px,transparent 1px); background-size:48px 48px; }
+.reveal { animation:rise .7s both; }
+@keyframes rise { from { opacity:0; transform:translateY(18px); } to { opacity:1; transform:none; } }
+@media (prefers-reduced-motion:reduce) { *,*::before,*::after { scroll-behavior:auto!important; transition:none!important; animation:none!important; } }
+img { transition: transform .65s cubic-bezier(.2,.7,.2,1); }
+section:hover > img.absolute { transform: scale(1.015); }
+@media (prefers-reduced-motion:reduce) { img { transition:none; } }
+.mobile-nav summary::-webkit-details-marker { display:none; }
+.mobile-nav .menu-close, .mobile-nav[open] .menu-open { display:none; }
+.mobile-nav[open] .menu-close { display:block; }

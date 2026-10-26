@@ -1,0 +1,28 @@
+---
+import { site } from '../data/site';
+const path = Astro.url.pathname;
+---
+<header class="sticky top-0 z-50 border-b border-wine/10 bg-cream/95 backdrop-blur-xl">
+  <div class="container-shell flex min-h-[76px] items-center justify-between gap-5">
+    <a href="/" class="flex items-center gap-3 font-bold text-wine-dark" aria-label="Word of Faith home">
+      <span class="grid h-11 w-11 place-items-center rounded-full bg-wine text-xs font-black tracking-wider text-white ring-2 ring-gold/60">WOF</span>
+      <span class="hidden leading-tight sm:block">Word of Faith<span class="block text-[.68rem] font-extrabold uppercase tracking-[.15em] text-wine">Church of God</span></span>
+    </a>
+    <nav aria-label="Main navigation" class="hidden lg:block"><ul class="flex items-center gap-6 text-sm font-bold">
+      {site.nav.map(([label,href]) => <li><a class:list={["border-b-2 py-2 transition hover:border-gold hover:text-wine", path === href ? "border-gold text-wine" : "border-transparent"]} href={href}>{label}</a></li>)}
+    </ul></nav>
+    <div class="flex items-center gap-3">
+      <a class="btn btn-primary text-sm" href="/visit">Plan Your Visit</a>
+      <details class="mobile-nav relative lg:hidden">
+        <summary class="grid h-11 w-11 cursor-pointer list-none place-items-center rounded-full border border-wine/20 text-wine-dark" aria-label="Open menu">
+          <svg class="menu-open h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+          <svg class="menu-close h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+        </summary>
+        <nav aria-label="Mobile navigation" class="absolute right-0 top-14 w-64 rounded-2xl border border-wine/10 bg-cream p-3 shadow-2xl"><ul class="grid text-base font-bold">
+          {site.nav.map(([label,href]) => <li><a class:list={["block rounded-xl px-4 py-3 transition hover:bg-sand/60", path === href ? "bg-sand/60 text-wine" : "text-wine-dark"]} href={href}>{label}</a></li>)}
+          <li><a class="block rounded-xl px-4 py-3 text-wine-dark transition hover:bg-sand/60" href="/visit">Plan Your Visit</a></li>
+        </ul></nav>
+      </details>
+    </div>
+  </div>
+</header>

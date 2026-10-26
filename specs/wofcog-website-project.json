@@ -1,0 +1,279 @@
+{
+  "meta": {
+    "client": "Word of Faith Church of God",
+    "project": "Website Redesign",
+    "status": "working discovery / pre-approval",
+    "brand": "AVENIR",
+    "iteration": "V3"
+  },
+  "facts": {
+    "name": "Word of Faith Church of God",
+    "short_name": "Word of Faith COG",
+    "address": "108 Fortunato Pl., Neptune, NJ 07753",
+    "phone": "(732) 922-0245",
+    "email": "wordoffaithcog@gmail.com",
+    "sunday_service": "11:30 AM",
+    "pastor": "Bishop Alexander McKenzie",
+    "first_lady": "Jossett O. McKenzie",
+    "denomination": "Church of God / Pentecostal",
+    "mission_supplied": "Word of faith is a Pentecostal based church that glorifies the lord Jesus equip the saints and evangelize the sinners.",
+    "history_working": "The church began in New Brunswick, later moved to Neptune, and now has its own establishment there. Bishop Alexander McKenzie has led the church since 2007 and was not the founder.",
+    "active_programs": [
+      "Bible study",
+      "Youth night",
+      "Annual summer community outreach"
+    ],
+    "youth_note": "Friday at the church; open broadly, with most participants age 17 and under.",
+    "livestream": "Facebook Live; stationary rear camera operated by media team.",
+    "giving_current": [
+      "In person",
+      "Zelle"
+    ],
+    "mission_display": "Word of Faith is a Pentecostal-based church that glorifies the Lord Jesus, equips the saints, and evangelizes sinners.",
+    "mission_original": "Word of faith is a Pentecostal based church that glorifies the lord Jesus equip the saints and evangelize the sinners"
+  },
+  "goals": [
+    "Make the website the reliable public source of truth for events, dates, service information, ministries, livestream, giving, and contact information.",
+    "Help local people searching for a church understand WOFCOG and feel that it could become their spiritual/religious home.",
+    "Support online giving through a proper third-party provider while retaining simple giving alternatives.",
+    "Allow church leadership to maintain recurring/changing content without editing source code."
+  ],
+  "audiences": {
+    "current": "An aging, predominantly Jamaican/Caribbean and Black congregation with some younger members.",
+    "growth": "People across cultures who are zealous about a relationship with God, learning the Bible, community, volunteering, younger people and families.",
+    "principle": "Intergenerational: modern enough for younger visitors while familiar, readable, and easy for older members."
+  },
+  "differentiation": "The people: love of feeding the community, giving back, and wanting to make a difference.",
+  "visitor_feeling": "A place to worship God and Jesus, grow in faith, find community, and feel at home.",
+  "homepage_priority": "Information first: what the church stands for, what it is about, how to visit, what to expect, leadership, and a sense that someone can make a spiritual home here.",
+  "brand": {
+    "desired_words": [
+      "comforting",
+      "stylish",
+      "sleek",
+      "fun",
+      "home",
+      "warm"
+    ],
+    "energy": 6,
+    "voice": "Between formal church language and conversational language.",
+    "palette": {
+      "burgundy": "#701D2E",
+      "dark_burgundy": "#46121D",
+      "gold": "#C5A253",
+      "warm_beige": "#E8DCC7",
+      "off_white": "#F8F3E9"
+    },
+    "palette_origin": "Chosen for the website partly from the church's carpet/chair/interior colors.",
+    "logo": "Church of God denominational mark; obtain official authorized asset before production. Do not extract from Google Images.",
+    "photography": "Authentic WOFCOG photography desired; church can organize capture. Avoid pretending stock photos are the congregation.",
+    "motion_direction": "Moderate (6/10): CSS-led reveals, hover crop/scale, navigation feedback, subtle decorative movement; no constant flying/bouncing elements.",
+    "visual_direction": "More image-led and editorial than V1; stronger typography, asymmetric compositions, alternating light/dark sections, larger visual moments, less repetitive card-grid structure."
+  },
+  "homepage_wireframe": [
+    {
+      "section": "Hero / Welcome",
+      "purpose": "Immediately identify the church and reduce visit friction.",
+      "content": [
+        "Warm welcome/value statement",
+        "Sunday 11:30 AM",
+        "Neptune, NJ",
+        "Plan Your Visit CTA",
+        "Watch Live secondary CTA"
+      ],
+      "visual": "Strong typography with restrained decorative treatment; authentic church image when available."
+    },
+    {
+      "section": "You Can Belong Here",
+      "purpose": "Express spiritual-home positioning and who the church is.",
+      "content": [
+        "Pentecostal Christian identity",
+        "worship",
+        "Bible learning",
+        "community",
+        "service"
+      ]
+    },
+    {
+      "section": "Mission Statement",
+      "purpose": "Make the church's supplied mission impossible to miss.",
+      "content": [
+        "Glorify the Lord Jesus",
+        "Equip the saints",
+        "Evangelize sinners"
+      ],
+      "visual": "A full-width burgundy editorial statement with oversized gold numbering/keywords; one of the homepage's memorable brand moments."
+    },
+    {
+      "section": "Plan Your Visit",
+      "purpose": "Answer first-visit questions quickly.",
+      "content": [
+        "service time",
+        "address",
+        "what to expect",
+        "directions/contact"
+      ]
+    },
+    {
+      "section": "Upcoming Events",
+      "purpose": "Make site source of truth.",
+      "content": [
+        "structured upcoming events",
+        "link to all events"
+      ],
+      "dynamic": true
+    },
+    {
+      "section": "Leadership",
+      "purpose": "Put people behind the church.",
+      "content": [
+        "Bishop Alexander McKenzie",
+        "First Lady Jossett O. McKenzie"
+      ]
+    },
+    {
+      "section": "Watch & Worship",
+      "purpose": "Make livestream obvious.",
+      "content": [
+        "Facebook livestream/embed when technically supported",
+        "fallback Watch on Facebook CTA"
+      ]
+    },
+    {
+      "section": "Grow & Get Involved",
+      "purpose": "Surface real active programming.",
+      "content": [
+        "Bible study",
+        "youth night",
+        "community outreach"
+      ]
+    },
+    {
+      "section": "Life at Word of Faith",
+      "purpose": "Show authentic people/community.",
+      "content": [
+        "future authentic photography"
+      ]
+    },
+    {
+      "section": "Give",
+      "purpose": "Make giving understandable without dominating the visitor journey.",
+      "content": [
+        "online provider TBD",
+        "Zelle",
+        "in person"
+      ]
+    },
+    {
+      "section": "Visit / Footer",
+      "purpose": "Repeat practical information and contact.",
+      "content": [
+        "address",
+        "Sunday time",
+        "phone",
+        "email",
+        "social links"
+      ]
+    }
+  ],
+  "sitemap": {
+    "/": "Home",
+    "/about": "About / Church / Leadership / Beliefs",
+    "/ministries": "Ministries",
+    "/events": "Events",
+    "/media": "Watch / Media",
+    "/give": "Give",
+    "/visit": "Plan Your Visit / Contact"
+  },
+  "technical": {
+    "framework": "Astro",
+    "language": "TypeScript",
+    "styling": "Tailwind CSS",
+    "client_framework": "React only for islands that genuinely need state/interactive UI",
+    "hosting_target": "Cloudflare Pages",
+    "version_control": "GitHub",
+    "architecture": "Static-first",
+    "events": "Compare Google Calendar-backed workflow with lightweight CMS; initial code should isolate event data behind a replaceable content layer.",
+    "giving": "External established giving/payment provider; never custom card processing.",
+    "livestream": "Facebook workflow initially; architecture should allow future YouTube support."
+  },
+  "content_rules": [
+    "Do not invent church schedules beyond confirmed Sunday 11:30 AM.",
+    "Do not invent leadership names beyond supplied names.",
+    "Do not publish unapproved historical details as definitive copy.",
+    "Do not claim a giving provider has been selected.",
+    "Do not use stock imagery in a way that implies depicted people are WOFCOG members.",
+    "Financial/tax member reporting is future scope, not V1."
+  ],
+  "unresolved": [
+    "Exact Bible-study schedule.",
+    "Exact youth-night schedule/frequency and formal age range.",
+    "Complete public leadership roster/titles.",
+    "Approved church history/timeline.",
+    "Approved local mission/vision wording.",
+    "Official Church of God logo asset and usage permission.",
+    "Online giving provider and public Zelle details.",
+    "Final content/event approval authority.",
+    "Authentic photography and permissions, especially minors.",
+    "Facebook embed details and possible future YouTube workflow."
+  ],
+  "reference_direction": {
+    "primary_visual_reference": {
+      "site": "New Jersey Church of God",
+      "url": "https://newjerseycog.org/",
+      "use_for": [
+        "visual confidence",
+        "image-led presentation",
+        "strong section changes",
+        "bold typography",
+        "events/ministries prominence"
+      ]
+    },
+    "client_reference": {
+      "site": "Victory Tabernacle Church International",
+      "url": "https://igotthevictory.org/",
+      "use_for": [
+        "visitor actions",
+        "church energy",
+        "leadership presence",
+        "mission prominence",
+        "events/community emphasis"
+      ],
+      "moderate": [
+        "animation density",
+        "continuous movement",
+        "visual busyness"
+      ]
+    },
+    "synthesis": "NJCOG visual confidence + Victory visitor/church energy + WOFCOG's own warm intergenerational identity."
+  },
+  "new_intake_2026_09_29": {
+    "preferred_public_name": "WOF",
+    "youtube": "https://www.youtube.com/@wordoffaithcog",
+    "confirmed_programs": [
+      "Sunday Service \u2014 Sundays 11:30 AM EST",
+      "Virtual Bible Study \u2014 Thursdays 6:00 PM EST via Zoom",
+      "Youth Night \u2014 every other Friday 7:00 PM EST, in person",
+      "Annual Community Outreach \u2014 second Saturday in August"
+    ],
+    "primary_audience": "new visitors",
+    "primary_conversion": "visit in person",
+    "requested_features": [
+      "contact form",
+      "donations",
+      "calendar",
+      "livestream",
+      "social media integration",
+      "prayer request",
+      "directions/maps",
+      "email contact"
+    ],
+    "current_channels": [
+      "Facebook",
+      "YouTube"
+    ],
+    "content_update_frequency": "a few times per year; events and photos/videos most frequent",
+    "content_approval": "Nicola / church leadership; Pastor & First Lady stakeholders",
+    "launch_target": "2026-10-31"
+  }
+}
