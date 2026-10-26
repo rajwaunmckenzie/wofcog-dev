@@ -14,7 +14,9 @@ V3 incorporates the September 29, 2026 internal intake and the supplied leadersh
 
 ## Run locally
 
-Requires Node.js 18.20+ (20 or 22 recommended).
+Requires Node.js 22.23.4 or newer (24 LTS recommended; see `.nvmrc`).
+
+Tailwind runs through PostCSS (`postcss.config.mjs`), not the deprecated `@astrojs/tailwind` integration.
 
 
 ```bash
@@ -33,3 +35,8 @@ npm run build
 ## Important
 
 External integrations such as giving, prayer submissions, Zoom, calendar, livestream, and maps remain intentionally unconnected until their production accounts/URLs and policies are confirmed. See `UNRESOLVED.md`.
+
+## Security
+
+- Never commit secrets. `.env` files are git-ignored; put placeholders in `.env.example` only.
+- Run `npm audit` after changing dependencies and fix findings before pushing.
