@@ -1,10 +1,13 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { Image } from 'astro:assets';
 import { site } from '../data/site';
+import heroPhoto from '../assets/leadership/bishop-first-lady-white-wide.jpg';
+import leadershipPhoto from '../assets/leadership/bishop-first-lady-standing.jpg';
 ---
 <BaseLayout>
   <section class="relative isolate min-h-[82vh] overflow-hidden bg-wine-dark text-white">
-    <img src="/images/leadership/bishop-first-lady-formal.jpg" alt="Word of Faith church leadership" class="absolute inset-0 h-full w-full object-cover object-[center_30%] opacity-35" />
+    <Image src={heroPhoto} alt="" loading="eager" fetchpriority="high" class="absolute inset-0 h-full w-full object-cover object-[70%_30%] opacity-35" />
     <div class="absolute inset-0 bg-gradient-to-r from-wine-dark via-wine-dark/90 to-wine-dark/25"></div>
     <div class="absolute inset-0 cross-grid opacity-50"></div>
     <div class="container-shell relative flex min-h-[82vh] items-center py-20">
@@ -37,8 +40,8 @@ import { site } from '../data/site';
   </div></section>
 
   <section class="overflow-hidden bg-sand/55 py-20 sm:py-28"><div class="container-shell grid gap-12 lg:grid-cols-[1.08fr_.92fr] lg:items-center">
-    <div class="relative"><img src="/images/leadership/bishop-first-lady-standing.jpg" alt="Bishop Alexander McKenzie and First Lady Jossett O. McKenzie" class="aspect-[4/5] w-full rounded-[2.5rem] object-cover shadow-2xl"/><div class="absolute -bottom-6 -right-3 bg-gold px-7 py-5 text-wine-dark shadow-xl"><p class="text-xs font-black uppercase tracking-[.18em]">Leadership</p><p class="mt-1 font-display text-2xl font-bold">Faithful. Present. Welcoming.</p></div></div>
-    <div class="lg:pl-8"><p class="eyebrow">Meet our leadership</p><h2 class="mt-4 font-display text-5xl font-bold leading-tight text-wine-dark">Led with faith.<br/>Rooted in community.</h2><p class="mt-6 text-lg leading-8 text-stone-700">Bishop Alexander McKenzie and First Lady Jossett O. McKenzie serve Word of Faith with a heart for worship, spiritual growth, and community.</p><a class="btn btn-primary mt-8" href="/about">Meet Our Leadership</a></div>
+    <div class="relative"><Image src={leadershipPhoto} widths={[400, 600]} sizes="(min-width: 1024px) 560px, 100vw" alt="Bishop Alexander McKenzie and First Lady Jossett O. McKenzie" class="aspect-[4/5] w-full rounded-[2.5rem] object-cover shadow-2xl"/><div class="absolute -bottom-6 -right-3 bg-gold px-7 py-5 text-wine-dark shadow-xl"><p class="text-xs font-black uppercase tracking-[.18em]">Leadership</p><p class="mt-1 font-display text-2xl font-bold">Faithful. Present. Welcoming.</p></div></div>
+    <div class="lg:pl-8"><p class="eyebrow">Meet our leadership</p><h2 class="mt-4 font-display text-5xl font-bold leading-tight text-wine-dark">Led with faith.<br/>Rooted in community.</h2><p class="mt-6 text-lg leading-8 text-stone-700">Bishop Alexander McKenzie and First Lady Jossett O. McKenzie serve Word of Faith with a heart for worship, spiritual growth, and community.</p><a class="btn btn-primary mt-8" href="/about#leadership">Meet Our Leadership</a></div>
   </div></section>
 
   <section class="bg-wine-dark py-20 text-white sm:py-28"><div class="container-shell grid gap-8 lg:grid-cols-12">

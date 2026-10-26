@@ -13,3 +13,5 @@
 - Confirm local statement-of-faith copy/link.
 - Confirm who maintains the site after launch.
 - Confirm photo permissions and which supplied leadership portraits are approved for publication.
+- Get full-resolution originals of the leadership photos. The supplied files are only 400–600px wide, which looks soft in the full-width homepage hero and on large screens.
+- Confirm the Facebook page URL so Watch/Livestream links can point to it.

@@ -5,6 +5,8 @@ export const site = {
   phone: '(732) 922-0245',
   email: 'wordoffaithcog@gmail.com',
   service: 'Sundays • 11:30 AM',
+  url: 'https://wordoffaithcog.com',
+  directions: 'https://www.google.com/maps/dir/?api=1&destination=108+Fortunato+Pl,+Neptune,+NJ+07753',
   youtube: 'https://www.youtube.com/@wordoffaithcog',
   mission: 'Word of Faith is a Pentecostal-based church that glorifies the Lord Jesus, equips the saints, and evangelizes sinners.',
   nav: [
