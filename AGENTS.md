@@ -55,6 +55,8 @@ Change facts in `src/data/site.ts`, never hard-code them in pages.
 - Photos live in `src/assets/` and render through `astro:assets` `<Image>` so they're optimized. Don't put photos in `public/`.
 - Specialized services own specialized jobs: giving provider for payments, Google Calendar or a light CMS for events, Facebook/YouTube for livestream, a mailbox/form service for contact and prayer. The site never processes payments itself.
 - Planned hosting: Cloudflare.
+- SEO lives in `src/layouts/BaseLayout.astro` and `src/lib/seo.ts`: every page passes its own `title` and `description` (include "Neptune, NJ" where it reads naturally), and the layout adds canonical, Open Graph and Church JSON-LD built from `site.ts`. New public pages go in `pages` in `seo.ts` for the sitemap. Indexing stays off until launch (see `UNRESOLVED.md`).
+- Every page ends with a step toward visiting; use `src/components/VisitCta.astro` when a page has none of its own.
 
 ## Rules
 

@@ -18,3 +18,13 @@
 - Confirm who maintains the site after launch.
 - Confirm photo permissions and which supplied leadership portraits are approved for publication.
 - Get full-resolution originals of the leadership photos. The supplied files are only 400–600px wide, which looks soft in the full-width homepage hero and on large screens.
+
+## Launch SEO checklist
+
+- Search engines are told not to index the site (`noindex`) until it runs on wordoffaithcog.com, so the dev site never competes with the Wix site. On Netlify this switches on by itself once wordoffaithcog.com is the site's primary domain. On any other host, set `INDEXABLE=true` for the production build. See `src/lib/seo.ts`.
+- Before switching the domain, list the old Wix page URLs and add 301 redirects to the matching new pages in `public/_redirects`, so existing Google results and bookmarks keep working.
+- After launch: add the site to Google Search Console and Bing Webmaster Tools and submit `https://wordoffaithcog.com/sitemap.xml`.
+- Claim or update the Google Business Profile (also Apple Business Connect and Bing Places) with exactly the same name, address and phone as the site, Sunday 11:30 AM, and the website link. This matters more for "church near me" searches than anything on the site.
+- Check WOF's listing in the Church of God church locator (churchofgod.org/church-locator) and ask for it to link to the new site.
+- First-time visitor questions to answer on the Visit page: how long Sunday service lasts, where to park, what people usually wear, whether there's anything for children during service, wheelchair access, and who greets newcomers.
+- Share image: link previews (Facebook, texts) use a 600px photo of the pastors. Replace it with a 1200×630 image of the church or the new logo when one is available.
