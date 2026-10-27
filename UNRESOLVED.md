@@ -28,3 +28,5 @@
 - Check WOF's listing in the Church of God church locator (churchofgod.org/church-locator) and ask for it to link to the new site.
 - First-time visitor questions to answer on the Visit page: how long Sunday service lasts, where to park, what people usually wear, whether there's anything for children during service, wheelchair access, and who greets newcomers.
 - Share image: link previews (Facebook, texts) use a 600px photo of the pastors. Replace it with a 1200×630 image of the church or the new logo when one is available.
+- Facebook group: Facebook no longer allows websites to embed a group's feed or videos. Send the group's URL if the Media page should link to it; videos meant for the site should be posted or shared to the WOF page.
+- YouTube gallery shows the 15 newest uploads from the channel's public feed (refreshed by the daily rebuild). Showing every video would need a YouTube Data API key stored only in Netlify's environment settings; not planned unless leadership wants it.
