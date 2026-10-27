@@ -3,7 +3,7 @@
 - Confirm the Church of God globe emblem may be used (now in the homepage hero as a faded cream SVG traced from the supplied image) and whether the denomination requires a specific color or treatment.
 - Confirm the livestream workflow: is Sunday streamed to Facebook only, or also YouTube? The Media page embeds the Facebook page timeline and the YouTube uploads playlist (facebook.com/WOFCOG, youtube.com/@wordoffaithcog).
 - Confirm Zoom link publishing policy for Thursday Bible Study (public link vs request/join workflow).
-- Select online giving provider and confirm whether Zelle remains publicly listed.
+- Online giving: Tithe.ly is chosen, but the church account isn't set up yet. Once it is, paste the giving link into `site.giving.tithely` in `src/data/site.ts` and the Online option appears on the Give page. Zelle (Word of Faith, (732) 489-4489) is listed publicly as of 2026-10-27.
 - Prayer requests: the Visit page form uses Netlify Forms (name `prayer-request`). To do in the Netlify dashboard: enable form detection, and add an email notification to the confirmed inbox (likely wordoffaithcog@gmail.com). Confirm who reads requests and who counts as the "prayer team". Submissions are also kept under Forms in Netlify; the free plan allows 100 per month.
 - Confirm contact-form mailbox.
 - Events calendar: the Events page reads the public iCal feed of the Google Calendar set in `site.calendar.id` (a dedicated calendar Rajwaun shared on 2026-10-27). Until that calendar is public it shows the confirmed schedule from `site.ts`. To do: confirm it's set to "Make available to public" with "See all event details".
