@@ -29,3 +29,9 @@ section:hover > img.absolute { transform: scale(1.015); }
 .mobile-nav .menu-close, .mobile-nav[open] .menu-open { display:none; }
 .mobile-nav[open] .menu-close { display:block; }
 [hidden] { display:none !important; }
+.field { display:grid; gap:.45rem; font-weight:700; color:var(--wine-dark); }
+.field em { font-style:normal; font-weight:500; color:#78716c; }
+.field input,.field textarea { width:100%; border:1px solid rgba(112,29,46,.25); border-radius:.85rem; background:var(--cream); padding:.75rem .9rem; font:inherit; font-weight:400; color:#2b2022; }
+.field input:focus,.field textarea:focus,.choice input:focus-visible { outline:3px solid var(--gold); outline-offset:2px; }
+.choice { display:flex; gap:.75rem; align-items:flex-start; line-height:1.5; color:#44403c; }
+.choice input { margin-top:.3rem; width:1.1rem; height:1.1rem; accent-color:var(--wine); flex:none; }
