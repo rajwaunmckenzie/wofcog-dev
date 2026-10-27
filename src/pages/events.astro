@@ -1,4 +1,302 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { site } from '../data/site';
+import {
+  getCalendar, gatheringEvents, calendarLinks, googleAddLink, icsFileName, formatDay, formatWhen, endInstant,
+  isVirtualPlace, URL_RE, TZ, type CalEvent,
+} from '../lib/calendar';
+
+const { source, events, rangeStart, months } = await getCalendar();
+const live = source === 'google';
+const nextGatherings = gatheringEvents();
+const phoneHref = `tel:${site.phone.replace(/[^0-9]/g, '')}`;
+
+const isOnline = (ev: CalEvent) => Boolean(ev.join) || ev.location === 'Zoom';
+const hasPlace = (ev: CalEvent) => Boolean(ev.location) && !isVirtualPlace(ev.location);
+const directions = (place: string) => `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(place)}`;
+const joinLabel = (ev: CalEvent) => (ev.join!.kind === 'meeting' ? `Join on ${ev.join!.provider}` : `Watch on ${ev.join!.provider}`);
+const repeatLabel = (ev: CalEvent) => (ev.rrule?.startsWith('FREQ=WEEKLY') ? 'Repeats weekly' : ev.rrule ? 'Repeats yearly' : '');
+const segments = (text: string) => text.split(new RegExp(`(${URL_RE.source})`, 'gi'));
+
+// Month grids, Sunday-first.
+const byDay = new Map<string, CalEvent[]>();
+for (const ev of events) for (const d of ev.days) byDay.set(d, [...(byDay.get(d) ?? []), ev]);
+const monthBlocks = Array.from({ length: months }, (_, i) => {
+  const [y, m] = rangeStart.split('-').map(Number);
+  const first = new Date(Date.UTC(y, m - 1 + i, 1));
+  const key = `${first.getUTCFullYear()}-${String(first.getUTCMonth() + 1).padStart(2, '0')}`;
+  const daysInMonth = new Date(Date.UTC(first.getUTCFullYear(), first.getUTCMonth() + 1, 0)).getUTCDate();
+  const cells: (string | null)[] = Array(first.getUTCDay()).fill(null);
+  for (let d = 1; d <= daysInMonth; d++) cells.push(`${key}-${String(d).padStart(2, '0')}`);
+  while (cells.length % 7) cells.push(null);
+  return { key, title: formatDay(`${key}-01`, { month: 'long', year: 'numeric' }), cells };
+});
+const weekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+const buildTime = Date.now();
 ---
-<BaseLayout title="Events | Word of Faith Church of God"><section class="py-20"><div class="container-shell max-w-4xl"><p class="eyebrow">Church calendar</p><h1 class="mt-3 font-display text-5xl font-bold text-wine-dark">Upcoming events</h1><p class="mt-5 text-lg leading-8 text-stone-700">This page is prepared for a leadership-managed event source. Google Calendar and a lightweight CMS remain under evaluation. Until that integration is selected, no event dates will be invented.</p></div></section></BaseLayout>
+<BaseLayout title="Events | Word of Faith Church of God" description="Upcoming worship services, Bible study, youth nights and church events at Word of Faith Church of God in Neptune, NJ.">
+  <section class="cross-grid border-b border-wine/10 py-16 sm:py-20">
+    <div class="container-shell reveal">
+      <p class="eyebrow">Church calendar</p>
+      <h1 class="mt-3 font-display text-4xl font-bold text-wine-dark sm:text-5xl">Events &amp; gatherings</h1>
+      <p class="mt-5 max-w-2xl text-lg leading-8 text-stone-700">Find a service, Bible study or church event, then add it to your own calendar. Online gatherings have a join button right on the event.</p>
+      <div class="mt-8 flex flex-wrap gap-3">
+        {live && <a class="btn btn-primary" href={calendarLinks.google} target="_blank" rel="noopener noreferrer">Follow in Google Calendar</a>}
+        {live && <a class="btn border border-wine/30 text-wine-dark" href={calendarLinks.webcal}>Subscribe (Apple / Outlook)</a>}
+        <a class:list={['btn', live ? 'border border-wine/30 text-wine-dark' : 'btn-primary']} href="/visit">Plan your visit</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-14 sm:py-16" data-events data-tz={TZ} data-build={buildTime}>
+    <div class="container-shell">
+      {!live && (
+        <div class="card mb-8 border-l-4 border-l-gold p-5 sm:p-6" role="note">
+          <p class="font-bold text-wine-dark">Our full church calendar is coming soon.</p>
+          <p class="mt-2 leading-7 text-stone-700">Until it's live, the calendar below shows our regular schedule. Youth Night meets every other Friday at 7:00 PM; call <a class="font-semibold text-wine underline" href={phoneHref}>{site.phone}</a> for this month's dates.</p>
+        </div>
+      )}
+
+      <div class="grid gap-8 lg:grid-cols-[minmax(0,1.3fr)_minmax(0,1fr)] lg:items-start">
+        <!-- Month view -->
+        <div class="card relative p-4 sm:p-6 lg:sticky lg:top-24">
+          <div class="absolute right-4 top-4 hidden items-center gap-1 sm:right-6 sm:top-5" data-month-nav>
+            <button type="button" class="cal-nav" data-prev aria-label="Previous month"><svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></button>
+            <button type="button" class="cal-nav px-3 text-sm font-bold" data-today>Today</button>
+            <button type="button" class="cal-nav" data-next aria-label="Next month"><svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button>
+          </div>
+          {monthBlocks.map((month, i) => (
+            <div data-month={month.key} hidden={i > 0} class="mb-8 last:mb-0">
+              <h2 class="flex min-h-[40px] items-center font-display text-2xl font-bold text-wine-dark" aria-live="polite">{month.title}</h2>
+              <div class="mt-4 grid grid-cols-7 text-center text-[.7rem] font-black uppercase tracking-[.12em] text-stone-500" aria-hidden="true">
+                {weekdays.map((d) => <span class="pb-2">{d}</span>)}
+              </div>
+              <div class="grid grid-cols-7 gap-1 sm:gap-1.5">
+                {month.cells.map((day) => {
+                  if (!day) return <span aria-hidden="true"></span>;
+                  const list = byDay.get(day) ?? [];
+                  const num = Number(day.slice(8));
+                  const label = formatDay(day);
+                  if (!list.length) return <span class="cal-day" data-date={day}><span class="cal-num">{num}</span></span>;
+                  return (
+                    <button type="button" class="cal-day cal-has" data-date={day} data-day={day} data-label={label} aria-pressed="false"
+                      aria-label={`${label}: ${list.map((e) => e.title).join(', ')}`}>
+                      <span class="cal-num">{num}</span>
+                      <span class="mt-1 flex justify-center gap-1 sm:hidden" aria-hidden="true">
+                        {list.slice(0, 3).map((e) => <span class:list={['h-1.5 w-1.5 rounded-full', isOnline(e) && !hasPlace(e) ? 'bg-gold' : 'bg-wine']}></span>)}
+                      </span>
+                      <span class="mt-1 hidden w-full space-y-1 sm:block" aria-hidden="true">
+                        {list.slice(0, 2).map((e) => <span class:list={['cal-chip', isOnline(e) && !hasPlace(e) && 'cal-chip-online']}>{e.title}</span>)}
+                        {list.length > 2 && <span class="block text-[.68rem] font-bold text-stone-500">+{list.length - 2} more</span>}
+                      </span>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          ))}
+          <p class="mt-5 flex flex-wrap gap-x-5 gap-y-1 text-xs text-stone-500">
+            <span class="inline-flex items-center gap-2"><span class="h-2 w-2 rounded-full bg-wine"></span>In person</span>
+            <span class="inline-flex items-center gap-2"><span class="h-2 w-2 rounded-full bg-gold"></span>Online</span>
+            <span>Times are Eastern.</span>
+            {live && <a class="font-semibold text-wine underline" href={calendarLinks.view} target="_blank" rel="noopener noreferrer">Open in Google Calendar</a>}
+          </p>
+        </div>
+
+        <!-- Agenda -->
+        <div id="agenda" class="scroll-mt-24">
+          <div class="flex flex-wrap items-end justify-between gap-3">
+            <h2 class="font-display text-3xl font-bold text-wine-dark" data-agenda-title>Upcoming events</h2>
+            <button type="button" class="hidden text-sm font-bold text-wine underline" data-reset>Show all upcoming</button>
+          </div>
+          <div class="mt-4 hidden flex-wrap gap-2" role="group" aria-label="Filter events" data-filters>
+            <button type="button" class="filter-chip" data-filter="all" aria-pressed="true">All</button>
+            <button type="button" class="filter-chip" data-filter="inperson" aria-pressed="false">In person</button>
+            <button type="button" class="filter-chip" data-filter="online" aria-pressed="false">Online</button>
+          </div>
+
+          <div class="mt-6 grid gap-4" data-list>
+            {events.map((ev) => {
+              const first = ev.days[0];
+              const end = endInstant(ev).getTime();
+              return (
+                <article class="card flex gap-4 p-5 transition hover:-translate-y-0.5" data-event data-days={ev.days.join(' ')} data-end={end}
+                  data-online={isOnline(ev) ? '1' : undefined} data-inperson={hasPlace(ev) || !isOnline(ev) ? '1' : undefined} hidden={end < buildTime}>
+                  <div class="flex h-[4.5rem] w-16 shrink-0 flex-col items-center justify-center rounded-2xl bg-wine text-white">
+                    <span class="text-[.65rem] font-black uppercase tracking-[.15em] text-gold">{formatDay(first, { month: 'short' })}</span>
+                    <span class="font-display text-2xl font-bold leading-none">{Number(first.slice(8))}</span>
+                    <span class="text-[.65rem] font-semibold uppercase tracking-wide text-white/80">{formatDay(first, { weekday: 'short' })}</span>
+                  </div>
+                  <div class="min-w-0 flex-1">
+                    <h3 class="text-lg font-bold leading-snug text-wine-dark">{ev.title}</h3>
+                    <p class="mt-1 text-sm font-semibold text-wine">
+                      {formatWhen(ev)}
+                      {repeatLabel(ev) && <span class="font-normal text-stone-500"> · {repeatLabel(ev)}</span>}
+                    </p>
+                    <div class="mt-2 flex flex-wrap gap-2 text-xs font-bold">
+                      {hasPlace(ev) && <span class="rounded-full bg-sand/70 px-2.5 py-1 text-wine-dark">In person</span>}
+                      {isOnline(ev) && <span class="rounded-full bg-gold/20 px-2.5 py-1 text-wine-dark">{ev.join?.kind === 'watch' ? `Livestream on ${ev.join.provider}` : `Online${ev.join ? ` · ${ev.join.provider}` : ev.location === 'Zoom' ? ' · Zoom' : ''}`}</span>}
+                    </div>
+                    {hasPlace(ev) && (
+                      <p class="mt-3 text-sm text-stone-700">
+                        {ev.location} · <a class="font-semibold text-wine underline" href={directions(ev.location)} target="_blank" rel="noopener noreferrer">Directions</a>
+                      </p>
+                    )}
+                    {ev.description && (
+                      <p class="mt-3 line-clamp-4 whitespace-pre-line break-words text-sm leading-6 text-stone-600">
+                        {segments(ev.description).map((part, i) => (i % 2 ? <a class="text-wine underline" href={part} target="_blank" rel="noopener noreferrer">{part}</a> : part))}
+                      </p>
+                    )}
+                    <div class="mt-4 flex flex-wrap gap-2">
+                      {ev.join && <a class="btn btn-primary min-h-[40px] px-4 py-2 text-sm" href={ev.join.url} target="_blank" rel="noopener noreferrer">{joinLabel(ev)}</a>}
+                      {!ev.join && ev.location === 'Zoom' && <a class="btn btn-primary min-h-[40px] px-4 py-2 text-sm" href={`mailto:${site.email}?subject=${encodeURIComponent(`Zoom link for ${ev.title}`)}`}>Request Zoom link</a>}
+                      <a class="btn min-h-[40px] border border-wine/25 px-4 py-2 text-sm text-wine-dark" href={googleAddLink(ev)} target="_blank" rel="noopener noreferrer">Add to Google Calendar</a>
+                      <a class="btn min-h-[40px] border border-wine/25 px-4 py-2 text-sm text-wine-dark" href={`/events/${ev.id}.ics`} download={icsFileName(ev)}>Download .ics</a>
+                    </div>
+                  </div>
+                </article>
+              );
+            })}
+          </div>
+          <p class="card mt-6 p-6 text-stone-700" data-empty hidden>
+            No events to show here. Join us for Sunday Worship ({site.service}), or call <a class="font-semibold text-wine underline" href={phoneHref}>{site.phone}</a>.
+          </p>
+          <button type="button" class="btn mt-6 hidden w-full border border-wine/25 text-wine-dark" data-more>Show more events</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-white py-16">
+    <div class="container-shell">
+      <p class="eyebrow">Every week at WOF</p>
+      <h2 class="mt-3 font-display text-3xl font-bold text-wine-dark sm:text-4xl">Our regular gatherings</h2>
+      <div class="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        {site.gatherings.map((g) => {
+          const ev = nextGatherings.find((e) => e.title === g.label);
+          return (
+            <article class="card flex flex-col p-6">
+              <h3 class="font-display text-xl font-bold text-wine-dark">{g.label}</h3>
+              <p class="mt-2 font-bold text-wine">{g.schedule}</p>
+              <p class="text-sm text-stone-500">{g.mode}</p>
+              <div class="mt-auto flex flex-wrap gap-x-4 gap-y-1 pt-5 text-sm font-semibold">
+                {ev ? (
+                  <>
+                    <a class="text-wine underline" href={googleAddLink(ev)} target="_blank" rel="noopener noreferrer">Add to Google</a>
+                    <a class="text-wine underline" href={`/events/${ev.id}.ics`} download={icsFileName(ev)}>.ics</a>
+                  </>
+                ) : (
+                  <a class="text-wine underline" href={phoneHref}>Call for dates</a>
+                )}
+              </div>
+            </article>
+          );
+        })}
+      </div>
+      <div class="mt-12 flex flex-col items-start gap-4 rounded-3xl bg-wine p-8 text-white sm:flex-row sm:items-center sm:justify-between">
+        <div>
+          <h2 class="font-display text-2xl font-bold">First time with us?</h2>
+          <p class="mt-1 text-white/80">Sunday Worship · {site.service}<br />{site.address}</p>
+        </div>
+        <a class="btn btn-light shrink-0" href="/visit">Plan your visit</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .cal-nav { display:inline-grid; place-items:center; min-width:40px; height:40px; border-radius:999px; color:var(--wine-dark); transition:background .2s ease; }
+  .cal-nav:hover:not(:disabled) { background:rgba(232,220,199,.7); }
+  .cal-nav:disabled { opacity:.35; cursor:default; }
+  .cal-day { display:flex; flex-direction:column; align-items:center; min-height:3rem; padding:.35rem .2rem; border-radius:.9rem; font-size:.9rem; color:#57534e; }
+  @media (min-width:640px) { .cal-day { min-height:5.25rem; align-items:stretch; padding:.45rem; } .cal-num { align-self:flex-start; } }
+  .cal-has { background:rgba(232,220,199,.45); color:var(--wine-dark); font-weight:700; cursor:pointer; transition:background .2s ease, transform .2s ease, box-shadow .2s ease; }
+  .cal-has:hover { background:rgba(232,220,199,.9); transform:translateY(-1px); }
+  .cal-has[aria-pressed="true"] { background:var(--wine); color:white; box-shadow:0 10px 24px -14px rgba(70,18,29,.8); }
+  .cal-has[aria-pressed="true"] .cal-chip { background:rgba(255,255,255,.16); color:white; border-color:transparent; }
+  .cal-num { display:grid; place-items:center; width:1.75rem; height:1.75rem; border-radius:999px; }
+  .is-today .cal-num { background:var(--gold); color:var(--wine-dark); font-weight:900; }
+  .is-past { opacity:.5; }
+  .cal-chip { display:block; overflow:hidden; white-space:nowrap; text-overflow:ellipsis; border-left:3px solid var(--wine); background:white; border-radius:.35rem; padding:.1rem .35rem; font-size:.68rem; font-weight:700; text-align:left; }
+  .cal-chip-online { border-left-color:var(--gold); }
+  .filter-chip { border:1px solid rgba(112,29,46,.25); border-radius:999px; padding:.45rem 1rem; font-size:.85rem; font-weight:800; color:var(--wine-dark); transition:background .2s ease,color .2s ease; }
+  .filter-chip:hover { background:rgba(232,220,199,.7); }
+  .filter-chip[aria-pressed="true"] { background:var(--wine-dark); border-color:var(--wine-dark); color:white; }
+</style>
+
+<script>
+  const root = document.querySelector<HTMLElement>('[data-events]');
+  if (root) {
+    const tz = root.dataset.tz!;
+    const parts = Object.fromEntries(new Intl.DateTimeFormat('en-US', { timeZone: tz, year: 'numeric', month: '2-digit', day: '2-digit' }).formatToParts(new Date()).map((p) => [p.type, p.value]));
+    const today = `${parts.year}-${parts.month}-${parts.day}`;
+    const now = Date.now();
+    const PAGE = 8;
+
+    // Month navigation
+    const months = [...root.querySelectorAll<HTMLElement>('[data-month]')];
+    const nav = root.querySelector<HTMLElement>('[data-month-nav]')!;
+    const prev = nav.querySelector<HTMLButtonElement>('[data-prev]')!;
+    const next = nav.querySelector<HTMLButtonElement>('[data-next]')!;
+    const todayIndex = Math.max(0, months.findIndex((m) => m.dataset.month === today.slice(0, 7)));
+    let current = todayIndex;
+    const showMonth = (i: number) => {
+      current = Math.min(Math.max(i, 0), months.length - 1);
+      months.forEach((m, j) => (m.hidden = j !== current));
+      prev.disabled = current === 0;
+      next.disabled = current === months.length - 1;
+    };
+    nav.classList.replace('hidden', 'flex');
+    prev.addEventListener('click', () => showMonth(current - 1));
+    next.addEventListener('click', () => showMonth(current + 1));
+    nav.querySelector('[data-today]')!.addEventListener('click', () => showMonth(todayIndex));
+    showMonth(current);
+
+    root.querySelectorAll<HTMLElement>('[data-date]').forEach((cell) => {
+      if (cell.dataset.date === today) cell.classList.add('is-today');
+      else if (cell.dataset.date! < today) cell.classList.add('is-past');
+    });
+
+    // Agenda: upcoming list, day selection and filters
+    const cards = [...root.querySelectorAll<HTMLElement>('[data-event]')];
+    const title = root.querySelector<HTMLElement>('[data-agenda-title]')!;
+    const reset = root.querySelector<HTMLElement>('[data-reset]')!;
+    const empty = root.querySelector<HTMLElement>('[data-empty]')!;
+    const more = root.querySelector<HTMLElement>('[data-more]')!;
+    const filters = root.querySelector<HTMLElement>('[data-filters]')!;
+    const dayButtons = [...root.querySelectorAll<HTMLButtonElement>('[data-day]')];
+    const state = { day: '', filter: 'all', limit: PAGE };
+
+    const render = () => {
+      const matches = cards.filter((c) =>
+        (state.day ? c.dataset.days!.split(' ').includes(state.day) : Number(c.dataset.end) > now) &&
+        (state.filter === 'all' || c.dataset[state.filter] === '1'));
+      const shown = state.day ? matches : matches.slice(0, state.limit);
+      cards.forEach((c) => (c.hidden = !shown.includes(c)));
+      empty.hidden = matches.length > 0;
+      more.classList.toggle('hidden', shown.length >= matches.length);
+      reset.classList.toggle('hidden', !state.day);
+      const selected = dayButtons.find((b) => b.dataset.day === state.day);
+      title.textContent = selected ? selected.dataset.label! : 'Upcoming events';
+      dayButtons.forEach((b) => b.setAttribute('aria-pressed', String(b === selected)));
+    };
+
+    dayButtons.forEach((b) => b.addEventListener('click', () => {
+      state.day = state.day === b.dataset.day ? '' : b.dataset.day!;
+      render();
+      if (state.day && window.matchMedia('(max-width: 1023px)').matches) {
+        document.getElementById('agenda')!.scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+      }
+    }));
+    reset.addEventListener('click', () => { state.day = ''; state.limit = PAGE; render(); });
+    more.addEventListener('click', () => { state.limit += PAGE; render(); });
+    filters.classList.replace('hidden', 'flex');
+    filters.querySelectorAll<HTMLButtonElement>('[data-filter]').forEach((b) => b.addEventListener('click', () => {
+      state.filter = b.dataset.filter!;
+      state.limit = PAGE;
+      filters.querySelectorAll('[data-filter]').forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
+      render();
+    }));
+    render();
+  }
+</script>
