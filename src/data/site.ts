@@ -18,6 +18,8 @@ export const site = {
   service: 'Sundays • 11:30 AM',
   url: 'https://wordoffaithcog.com',
   directions: 'https://www.google.com/maps/dir/?api=1&destination=108+Fortunato+Pl,+Neptune,+NJ+07753',
+  // Google's keyless embed: shows a pinned map without a Maps API key.
+  mapEmbed: 'https://maps.google.com/maps?q=108+Fortunato+Pl,+Neptune,+NJ+07753&z=15&output=embed',
   youtube: 'https://www.youtube.com/@wordoffaithcog',
   // Public channel ID for @wordoffaithcog; its uploads playlist is the same ID with UU in place of UC.
   youtubeChannelId: 'UCcD9kABCVnuhhPoIM6dNmlA',
