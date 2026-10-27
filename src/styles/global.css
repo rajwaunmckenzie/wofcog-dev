@@ -51,7 +51,8 @@ a:focus-visible,button:focus-visible,summary:focus-visible { outline:3px solid v
 @media print { [data-reveal] { opacity:1!important; transform:none!important; filter:none!important; } }
 @media (prefers-reduced-motion:reduce) { *,*::before,*::after { scroll-behavior:auto!important; transition:none!important; animation:none!important; } }
 img { transition: transform .65s cubic-bezier(.2,.7,.2,1); }
-@media (hover:hover) { section:hover > img.absolute { transform: scale(1.015); } }
+/* .still opts a decorative image (the homepage emblem) out of this hover zoom. */
+@media (hover:hover) { section:hover > img.absolute:not(.still) { transform: scale(1.015); } }
 @media (prefers-reduced-motion:reduce) { img { transition:none; } }
 /* Hover. One easing and a slightly longer duration so effects glide in and glide back out
    when the pointer leaves. Movement only on devices with a real hover and motion allowed. */
