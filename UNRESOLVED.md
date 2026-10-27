@@ -12,8 +12,8 @@
 - Confirm the usual length of Sunday Worship and Bible Study; the "Add to calendar" files use a 1-hour placeholder.
 - Confirm Youth Night's starting Friday so it can appear on the calendar fallback.
 - Confirm Google Maps implementation/API requirements; a normal directions link may avoid an API key.
-- Confirm complete public leadership roster and approved biographies.
-- Receive/approve church history text referenced as forthcoming by text message.
+- Leadership bios and church history (About page, `src/data/story.ts`) are drafted from the documents leadership supplied on 2026-10-27 and trimmed to what helps a newcomer decide to visit. Confirmed by Rajwaun: Rev. McKenzie's role is "Co-Pastor & First Lady"; her Master's in Social Work is completed. Still to confirm: the McKenzies' wedding year (site says "over 25 years" for now).
+- Leadership to approve the published church history wording (drafted from their supplied history document).
 - Confirm local statement-of-faith copy/link.
 - Confirm who maintains the site after launch.
 - Confirm photo permissions and which supplied leadership portraits are approved for publication.
