@@ -51,10 +51,16 @@ const facebookEmbed = `https://www.facebook.com/plugins/page.php?${new URLSearch
         </div>
         {videos.length > 0 && (
           <div class="p-6 sm:p-8">
-            <h3 class="font-display text-xl font-bold text-wine-dark">Recent uploads</h3>
-            <ul class="mt-4 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
+            <div class="flex items-center justify-between gap-4">
+              <h3 class="font-display text-xl font-bold text-wine-dark">Recent uploads</h3>
+              <div class="flex gap-2">
+                <button type="button" class="yt-scroll grid h-10 w-10 place-items-center rounded-full border border-wine/20 text-wine-dark transition hover:border-gold disabled:opacity-30" data-dir="-1" aria-label="Previous videos" disabled><svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></button>
+                <button type="button" class="yt-scroll grid h-10 w-10 place-items-center rounded-full border border-wine/20 text-wine-dark transition hover:border-gold disabled:opacity-30" data-dir="1" aria-label="More videos"><svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button>
+              </div>
+            </div>
+            <ul id="yt-row" class="mt-4 flex snap-x snap-mandatory gap-4 overflow-x-auto overscroll-x-contain pb-3">
               {videos.map((v) => (
-                <li>
+                <li class="w-[calc((100%-1rem)/2)] shrink-0 snap-start sm:w-[calc((100%-2rem)/3)] lg:w-[calc((100%-3rem)/4)]">
                   <button type="button" class="yt-video group block w-full text-left" data-src={videoEmbed(v.id)} data-title={v.title}>
                     <span class="block overflow-hidden rounded-lg bg-sand"><img class="aspect-video w-full object-cover transition group-hover:scale-105" src={thumbnail(v.id)} alt="" width="320" height="180" loading="lazy" decoding="async" /></span>
                     <span class="mt-2 line-clamp-2 block text-sm font-bold text-wine-dark group-hover:text-wine">{v.title}</span>
@@ -125,6 +131,7 @@ const facebookEmbed = `https://www.facebook.com/plugins/page.php?${new URLSearch
   });
 
   // YouTube: switch between latest uploads, past livestreams and the live player, or play one video.
+  const smooth = (): ScrollBehavior => matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth';
   const player = document.getElementById('yt-player')!;
   const viewButtons = document.querySelectorAll<HTMLButtonElement>('.yt-view');
   const liveNote = document.querySelector('.yt-live-note');
@@ -137,6 +144,20 @@ const facebookEmbed = `https://www.facebook.com/plugins/page.php?${new URLSearch
   viewButtons.forEach((b) => b.addEventListener('click', () => show(b.dataset.src!, `YouTube: ${b.textContent}`, b)));
   document.querySelectorAll<HTMLButtonElement>('.yt-video').forEach((b) => b.addEventListener('click', () => {
     show(b.dataset.src!, b.dataset.title!);
-    player.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'center' });
+    player.scrollIntoView({ behavior: smooth(), block: 'center' });
   }));
+
+  // Recent uploads: one row that scrolls sideways (swipe, or the arrow buttons). Thumbnails
+  // off to the side use native lazy loading, so they only download as they scroll into view.
+  const row = document.getElementById('yt-row');
+  const arrows = document.querySelectorAll<HTMLButtonElement>('.yt-scroll');
+  function updateArrows() {
+    if (!row) return;
+    const max = row.scrollWidth - row.clientWidth - 2;
+    arrows.forEach((a) => { a.disabled = a.dataset.dir === '1' ? row.scrollLeft >= max : row.scrollLeft <= 2; });
+  }
+  arrows.forEach((a) => a.addEventListener('click', () => row?.scrollBy({ left: Number(a.dataset.dir) * row.clientWidth, behavior: smooth() })));
+  row?.addEventListener('scroll', updateArrows, { passive: true });
+  addEventListener('resize', updateArrows);
+  updateArrows();
 </script>
