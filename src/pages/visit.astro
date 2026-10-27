@@ -24,6 +24,9 @@ const link = 'font-bold text-wine underline decoration-gold decoration-2 underli
       <a class="btn btn-primary" href={site.directions} target="_blank" rel="noopener noreferrer">Get directions</a>
       {sunday && <a class="btn border border-wine/30 text-wine-dark" href={googleAddLink(sunday)} target="_blank" rel="noopener noreferrer">Add to calendar</a>}
     </div>
+    <div class="mt-6 aspect-[4/3] overflow-hidden rounded-2xl border border-wine/15 bg-sand/60 sm:aspect-[16/10]">
+      <iframe src={site.mapEmbed} title={`Map showing ${site.name} at ${site.address}`} class="h-full w-full border-0" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>
     <p class="mt-6 text-stone-700">Questions? Call <a class={link} href={`tel:${tel}`}>{site.phone}</a> or email <a class={`${link} break-all`} href={`mailto:${site.email}`}>{site.email}</a>.</p>
   </aside>
 </div></section>
