@@ -24,6 +24,12 @@ export const site = {
   // Public channel ID for @wordoffaithcog; its uploads playlist is the same ID with UU in place of UC.
   youtubeChannelId: 'UCcD9kABCVnuhhPoIM6dNmlA',
   facebook: 'https://www.facebook.com/WOFCOG/',
+  giving: {
+    // Paste the church's Tithe.ly giving link here once the account is set up. While it's empty,
+    // the Give page leaves the Online option out entirely.
+    tithely: '',
+    zelle: { name: 'Word of Faith', phone: '(732) 489-4489' },
+  },
   // WOF is a congregation of the Church of God (Cleveland, Tennessee).
   denomination: { name: 'Church of God', url: 'https://churchofgod.org', declarationOfFaith: 'https://churchofgod.org/beliefs/declaration-of-faith/' },
   description: 'Word of Faith Church of God (WOF) is a Pentecostal church in Neptune, NJ. Join us for Sunday Worship at 11:30 AM at 108 Fortunato Pl.',

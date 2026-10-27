@@ -1,5 +1,74 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import VisitCta from '../components/VisitCta.astro';
+import { site } from '../data/site';
+const { tithely, zelle } = site.giving;
+const zelleDigits = zelle.phone.replace(/[^0-9]/g, '');
+const tel = site.phone.replace(/[^0-9]/g, '');
+const link = 'font-bold text-wine underline decoration-gold decoration-2 underline-offset-4';
+const ways = tithely ? 'online, by Zelle, or in person' : 'by Zelle or in person';
 ---
-<BaseLayout title="Give | Word of Faith Church of God" description="Ways to give to Word of Faith Church of God in Neptune, NJ. Give in person during services."><section class="py-20"><div class="container-shell max-w-4xl"><p class="eyebrow">Give</p><h1 class="mt-3 font-display text-5xl font-bold text-wine-dark">Ways to give.</h1><div class="mt-10 grid gap-5 md:grid-cols-3"><article class="card p-6"><h2 class="text-xl font-bold text-wine-dark">Online</h2><p class="mt-3 text-stone-700">Secure giving provider to be selected by church leadership.</p></article><article class="card p-6"><h2 class="text-xl font-bold text-wine-dark">Zelle</h2><p class="mt-3 text-stone-700">Available today. Public payment details will be added only after leadership confirmation.</p></article><article class="card p-6"><h2 class="text-xl font-bold text-wine-dark">In person</h2><p class="mt-3 text-stone-700">Giving is also available during church services.</p></article></div></div></section><VisitCta /></BaseLayout>
+<BaseLayout title="Give | Word of Faith Church of God, Neptune NJ" description={`Give to Word of Faith Church of God in Neptune, NJ ${ways} during Sunday Worship at ${site.address}.`}>
+<section class="cross-grid border-b border-wine/10 py-16 sm:py-20"><div class="container-shell max-w-5xl">
+  <p class="eyebrow">Give</p>
+  <h1 class="mt-3 font-display text-5xl font-bold text-wine-dark sm:text-6xl">Ways to give.</h1>
+  <p class="mt-6 max-w-2xl text-lg leading-8 text-stone-700">Your tithes and offerings support the ministry of Word of Faith. Choose the way that works best for you: {ways}.</p>
+</div></section>
+
+<section class="bg-white py-20 sm:py-24"><div class="container-shell max-w-5xl">
+  <div class:list={['grid gap-5', tithely ? 'lg:grid-cols-3' : 'md:grid-cols-2']}>
+    {tithely && (
+      <article class="card flex flex-col p-6 sm:p-7" aria-labelledby="give-online">
+        <p class="eyebrow">Anytime, anywhere</p>
+        <h2 id="give-online" class="mt-2 font-display text-3xl font-bold text-wine-dark">Online</h2>
+        <p class="mt-3 leading-7 text-stone-700">Give securely through Tithe.ly, once or on a recurring schedule.</p>
+        <p class="mt-auto pt-6"><a class="btn btn-primary" href={tithely} target="_blank" rel="noopener noreferrer">Give online with Tithe.ly</a></p>
+      </article>
+    )}
+
+    <article class="card flex flex-col p-6 sm:p-7" aria-labelledby="give-zelle">
+      <p class="eyebrow">From your bank app</p>
+      <h2 id="give-zelle" class="mt-2 font-display text-3xl font-bold text-wine-dark">Zelle</h2>
+      <dl class="mt-4 grid gap-3 rounded-2xl bg-sand/55 p-4">
+        <div><dt class="text-sm text-stone-600">Send to</dt><dd class="text-lg font-bold text-wine-dark">{zelle.name}</dd></div>
+        <div><dt class="text-sm text-stone-600">Phone number</dt>
+          <dd class="flex flex-wrap items-center gap-3"><span class="text-lg font-bold text-wine-dark">{zelle.phone}</span>
+            <button type="button" class="btn min-h-0 border border-wine/30 px-4 py-1.5 text-sm text-wine-dark hover:bg-white" data-copy={zelleDigits}>Copy number</button>
+            <span class="text-sm font-bold text-wine" role="status" aria-live="polite" data-copy-status></span></dd></div>
+      </dl>
+      <ol class="mt-5 grid list-decimal gap-2 pl-5 leading-7 text-stone-700 marker:font-bold marker:text-wine">
+        <li>Open your bank's app and choose Zelle.</li>
+        <li>Send money to {zelle.phone}.</li>
+        <li>Check that the name shows as <strong>{zelle.name}</strong> before you send.</li>
+        <li>Add a note such as "Tithe" or "Offering" if you'd like.</li>
+      </ol>
+    </article>
+
+    <article class="card flex flex-col p-6 sm:p-7" aria-labelledby="give-in-person">
+      <p class="eyebrow">At church</p>
+      <h2 id="give-in-person" class="mt-2 font-display text-3xl font-bold text-wine-dark">In person</h2>
+      <p class="mt-3 leading-7 text-stone-700">Give your tithes and offerings during Sunday Worship.</p>
+      <p class="mt-4 text-lg font-bold text-wine">{site.service}</p>
+      <address class="mt-1 not-italic text-stone-700">{site.address}</address>
+      <p class="mt-auto pt-6"><a class={link} href={site.directions} target="_blank" rel="noopener noreferrer">Get directions →</a></p>
+    </article>
+  </div>
+  <p class="mt-10 text-stone-700">Questions about giving? Call <a class={link} href={`tel:${tel}`}>{site.phone}</a> or email <a class={`${link} break-all`} href={`mailto:${site.email}?subject=${encodeURIComponent('Question about giving')}`}>{site.email}</a>.</p>
+</div></section>
+<VisitCta />
+</BaseLayout>
+
+<script>
+  document.querySelectorAll<HTMLButtonElement>('[data-copy]').forEach((button) => {
+    const status = button.parentElement?.querySelector<HTMLElement>('[data-copy-status]');
+    button.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(button.dataset.copy ?? '');
+        if (status) status.textContent = 'Copied';
+      } catch {
+        if (status) status.textContent = 'Press and hold the number to copy it';
+      }
+      setTimeout(() => { if (status) status.textContent = ''; }, 2500);
+    });
+  });
+</script>
