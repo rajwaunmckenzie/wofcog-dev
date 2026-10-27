@@ -50,26 +50,26 @@ const facebookEmbed = `https://www.facebook.com/plugins/page.php?${new URLSearch
           </button>
         </div>
         {videos.length > 0 && (
-          <div class="p-6 sm:p-8">
+          <div class="px-6 py-5 sm:px-8">
             <div class="flex items-center justify-between gap-4">
-              <h3 class="font-display text-xl font-bold text-wine-dark">Recent uploads</h3>
+              <h3 class="font-display text-lg font-bold text-wine-dark">Recent uploads</h3>
               <div class="flex gap-2">
-                <button type="button" class="yt-scroll grid h-10 w-10 place-items-center rounded-full border border-wine/20 text-wine-dark transition hover:border-gold disabled:opacity-30" data-dir="-1" aria-label="Previous videos" disabled><svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></button>
-                <button type="button" class="yt-scroll grid h-10 w-10 place-items-center rounded-full border border-wine/20 text-wine-dark transition hover:border-gold disabled:opacity-30" data-dir="1" aria-label="More videos"><svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button>
+                <button type="button" class="yt-scroll grid h-9 w-9 place-items-center rounded-full border border-wine/20 text-wine-dark transition hover:border-gold disabled:opacity-30" data-dir="-1" aria-label="Previous videos" disabled><svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></button>
+                <button type="button" class="yt-scroll grid h-9 w-9 place-items-center rounded-full border border-wine/20 text-wine-dark transition hover:border-gold disabled:opacity-30" data-dir="1" aria-label="More videos"><svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button>
               </div>
             </div>
-            <ul id="yt-row" class="mt-4 flex snap-x snap-mandatory gap-4 overflow-x-auto overscroll-x-contain pb-3">
+            <ul id="yt-row" class="mt-3 flex snap-x snap-mandatory gap-3 overflow-x-auto overscroll-x-contain pb-2">
               {videos.map((v) => (
-                <li class="w-[calc((100%-1rem)/2)] shrink-0 snap-start sm:w-[calc((100%-2rem)/3)] lg:w-[calc((100%-3rem)/4)]">
+                <li class="w-[calc((100%-1.5rem)/2.5)] shrink-0 snap-start sm:w-[calc((100%-3rem)/4)] lg:w-[calc((100%-4.5rem)/6)]">
                   <button type="button" class="yt-video group block w-full text-left" data-src={videoEmbed(v.id)} data-title={v.title}>
                     <span class="block overflow-hidden rounded-lg bg-sand"><img class="aspect-video w-full object-cover transition group-hover:scale-105" src={thumbnail(v.id)} alt="" width="320" height="180" loading="lazy" decoding="async" /></span>
-                    <span class="mt-2 line-clamp-2 block text-sm font-bold text-wine-dark group-hover:text-wine">{v.title}</span>
+                    <span class="mt-1.5 line-clamp-2 block text-[0.8rem] font-bold leading-snug text-wine-dark group-hover:text-wine">{v.title}</span>
                     {v.published && <span class="block text-xs text-stone-500">{dateFmt.format(new Date(v.published))}</span>}
                   </button>
                 </li>
               ))}
             </ul>
-            <a class="mt-6 inline-block text-sm font-bold text-wine underline decoration-gold underline-offset-4" href={`${site.youtube}/videos`} target="_blank" rel="noopener">See all videos on YouTube</a>
+            <a class="mt-3 inline-block text-sm font-bold text-wine underline decoration-gold underline-offset-4" href={`${site.youtube}/videos`} target="_blank" rel="noopener">See all videos on YouTube</a>
           </div>
         )}
       </article>
