@@ -8,8 +8,9 @@ const socials = [
 ];
 ---
 <footer class="bg-wine-dark py-12 text-cream">
-  <div class="container-shell grid gap-8 md:grid-cols-4">
+  <div class="container-shell grid gap-8 sm:grid-cols-2 lg:grid-cols-5">
     <div><p class="font-display text-2xl font-bold">{site.name}</p><p class="mt-2 text-cream/75">A Pentecostal church in Neptune, New Jersey, and part of the {site.denomination.name}.</p><a class="btn btn-light mt-5 text-sm" href="/visit">Plan Your Visit</a></div>
+    <nav aria-label="Footer"><p class="font-bold text-gold">Explore</p><ul class="mt-2 space-y-1">{site.nav.map(([label, href]) => <li><a class="hover:text-gold" href={href}>{label}</a></li>)}</ul></nav>
     <div><p class="font-bold text-gold">Visit</p><p class="mt-2">{site.service}</p><address class="not-italic">{site.address}</address><a class="mt-1 inline-block underline decoration-gold underline-offset-4 hover:text-gold" href={site.directions} target="_blank" rel="noopener noreferrer">Get directions</a></div>
     <div><p class="font-bold text-gold">Contact</p><ul class="mt-2 space-y-1"><li><a class="hover:text-gold" href={`tel:${tel}`}>{site.phone}</a></li><li><a class="break-all hover:text-gold" href={`mailto:${site.email}`}>{site.email}</a></li></ul></div>
     <div><p class="font-bold text-gold">Follow</p><ul class="mt-2 space-y-2">{socials.map((s) => <li><a class="inline-flex items-center gap-3 text-cream transition-colors hover:text-gold" href={s.href} target="_blank" rel="noopener"><svg class="h-5 w-5 shrink-0" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d={s.path} /></svg>{s.label}</a></li>)}</ul></div>

@@ -34,11 +34,11 @@ const monthBlocks = Array.from({ length: months }, (_, i) => {
 const weekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 const buildTime = Date.now();
 ---
-<BaseLayout title="Events & Calendar | Word of Faith Church of God, Neptune NJ" description="Upcoming worship services, Bible study, youth nights and church events at Word of Faith Church of God in Neptune, NJ.">
+<BaseLayout title="Events & Ministries | Word of Faith Church of God, Neptune NJ" description="Upcoming worship services, ministries, Bible study, youth nights and church events at Word of Faith Church of God in Neptune, NJ.">
   <section class="cross-grid border-b border-wine/10 py-16 sm:py-20">
     <div class="container-shell">
       <p class="eyebrow">Church calendar</p>
-      <h1 class="mt-3 font-display text-4xl font-bold text-wine-dark sm:text-5xl">Events &amp; gatherings</h1>
+      <h1 class="mt-3 font-display text-4xl font-bold text-wine-dark sm:text-5xl">Events &amp; ministries</h1>
       <p class="mt-5 max-w-2xl text-lg leading-8 text-stone-700">Find a service, Bible study or church event, then add it to your own calendar. Online gatherings have a join button right on the event.</p>
       <div class="mt-8 flex flex-wrap gap-3">
         {live && <a class="btn btn-primary" href={calendarLinks.google} target="_blank" rel="noopener noreferrer">Follow in Google Calendar</a>}
@@ -167,10 +167,10 @@ const buildTime = Date.now();
     </div>
   </section>
 
-  <section class="bg-white py-16">
+  <section id="ministries" class="scroll-mt-28 bg-white py-16">
     <div class="container-shell">
-      <p class="eyebrow">Every week at WOF</p>
-      <h2 class="mt-3 font-display text-3xl font-bold text-wine-dark sm:text-4xl">Our regular gatherings</h2>
+      <p class="eyebrow">Ministries &amp; gatherings</p>
+      <h2 class="mt-3 font-display text-3xl font-bold text-wine-dark sm:text-4xl">Grow and serve with us</h2>
       <div class="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {site.gatherings.map((g) => {
           const ev = nextGatherings.find((e) => e.title === g.label);
@@ -179,6 +179,7 @@ const buildTime = Date.now();
               <h3 class="font-display text-xl font-bold text-wine-dark">{g.label}</h3>
               <p class="mt-2 font-bold text-wine">{g.schedule}</p>
               <p class="text-sm text-stone-500">{g.mode}</p>
+              {g.about && <p class="mt-3 text-stone-700">{g.about}</p>}
               <div class="mt-auto flex flex-wrap gap-x-4 gap-y-1 pt-5 text-sm font-semibold">
                 {ev ? (
                   <>
