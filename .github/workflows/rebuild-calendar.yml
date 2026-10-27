@@ -1,11 +1,12 @@
-# Rebuilds the Netlify site every morning so the Events page picks up new
+# Rebuilds the Netlify site once a week so the Events page picks up new
 # Google Calendar events. The build hook URL is stored as the repository
 # secret NETLIFY_BUILD_HOOK_URL (Settings > Secrets and variables > Actions).
-name: Daily calendar rebuild
+name: Weekly calendar rebuild
 
 on:
   schedule:
-    - cron: '0 9 * * *' # 09:00 UTC = 4–5 AM Eastern
+    # Weekly to save Netlify credits (each production deploy costs 15).
+    - cron: '0 9 * * 1' # Mondays 09:00 UTC = 4–5 AM Eastern
   workflow_dispatch:
 
 permissions: {}

@@ -7,7 +7,7 @@
 - Prayer requests: the Visit page form uses Netlify Forms (name `prayer-request`). To do in the Netlify dashboard: enable form detection, and add an email notification to the confirmed inbox (likely wordoffaithcog@gmail.com). Confirm who reads requests and who counts as the "prayer team". Submissions are also kept under Forms in Netlify; the free plan allows 100 per month.
 - Confirm contact-form mailbox.
 - Events calendar: the Events page reads the public iCal feed of the Google Calendar set in `site.calendar.id` (a dedicated calendar Rajwaun shared on 2026-10-27). Until that calendar is public it shows the confirmed schedule from `site.ts`. To do: confirm it's set to "Make available to public" with "See all event details".
-- The site is static, so new calendar events appear after the next build. `.github/workflows/rebuild-calendar.yml` triggers a Netlify rebuild daily once the `NETLIFY_BUILD_HOOK_URL` repository secret is set.
+- The site is static, so new calendar events appear after the next build. `.github/workflows/rebuild-calendar.yml` triggers a Netlify rebuild every Monday once the `NETLIFY_BUILD_HOOK_URL` repository secret is set.
 - Meeting links (Teams, Zoom, Meet) placed in a public calendar event are visible to anyone. Confirm leadership is fine with that, or keep links out of events and use "Request Zoom link".
 - Confirm the usual length of Sunday Worship and Bible Study; the "Add to calendar" files use a 1-hour placeholder.
 - Confirm Youth Night's starting Friday so it can appear on the calendar fallback.
