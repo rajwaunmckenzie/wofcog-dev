@@ -1,0 +1,5 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { site } from '../data/site';
+---
+<BaseLayout title="Prayer Request Received | Word of Faith Church of God" noindex><section class="py-24"><div class="container-shell max-w-3xl text-center"><p class="eyebrow">Prayer request received</p><h1 class="mt-3 font-display text-5xl font-bold text-wine-dark">Thank you. We're praying with you.</h1><p class="mx-auto mt-6 max-w-2xl text-lg leading-8 text-stone-700">Your request has been sent to Word of Faith. If you asked us to reach out, someone from the church will be in touch. For anything urgent, please call {site.phone}.</p><div class="mt-10 flex flex-wrap justify-center gap-3"><a class="btn btn-primary" href="/visit">Plan your visit</a><a class="btn border border-wine/30 text-wine-dark" href="/">Back to home</a></div></div></section></BaseLayout>
