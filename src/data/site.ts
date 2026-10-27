@@ -11,6 +11,8 @@ export const site = {
   name: 'Word of Faith Church of God',
   shortName: 'WOF',
   address: '108 Fortunato Pl., Neptune, NJ 07753',
+  // Same address split up for search engines (structured data). Keep in sync with `address`.
+  postalAddress: { street: '108 Fortunato Pl.', city: 'Neptune', region: 'NJ', postalCode: '07753', country: 'US' },
   phone: '(732) 922-0245',
   email: 'wordoffaithcog@gmail.com',
   service: 'Sundays • 11:30 AM',
@@ -20,6 +22,9 @@ export const site = {
   // Public channel ID for @wordoffaithcog; its uploads playlist is the same ID with UU in place of UC.
   youtubeChannelId: 'UCcD9kABCVnuhhPoIM6dNmlA',
   facebook: 'https://www.facebook.com/WOFCOG/',
+  // WOF is a congregation of the Church of God (Cleveland, Tennessee).
+  denomination: { name: 'Church of God', url: 'https://churchofgod.org', declarationOfFaith: 'https://churchofgod.org/beliefs/declaration-of-faith/' },
+  description: 'Word of Faith Church of God (WOF) is a Pentecostal church in Neptune, NJ. Join us for Sunday Worship at 11:30 AM at 108 Fortunato Pl.',
   mission: 'Word of Faith is a Pentecostal-based church that glorifies the Lord Jesus, equips the saints, and evangelizes sinners.',
   nav: [
     ['Home','/'],['About','/about'],['Ministries','/ministries'],['Events','/events'],['Media','/media'],['Give','/give']

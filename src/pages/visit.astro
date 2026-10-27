@@ -1,9 +1,70 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { site } from '../data/site';
+import { gatheringEvents, googleAddLink, icsFileName } from '../lib/calendar';
 const tel = site.phone.replace(/[^0-9]/g, '');
+const sunday = gatheringEvents().find((e) => e.title === 'Sunday Worship');
+const bibleStudy = site.gatherings.find((g) => g.label === 'Virtual Bible Study');
+const visitMail = `mailto:${site.email}?subject=${encodeURIComponent("I'm planning to visit WOF")}`;
+const link = 'font-bold text-wine underline decoration-gold decoration-2 underline-offset-4';
 ---
-<BaseLayout title="Plan Your Visit | Word of Faith Church of God"><section class="py-20"><div class="container-shell grid gap-10 lg:grid-cols-2"><div><p class="eyebrow">Plan your visit</p><h1 class="mt-3 font-display text-5xl font-bold text-wine-dark">We'd be glad to worship with you.</h1><p class="mt-6 text-lg leading-8 text-stone-700">Sunday worship begins at 11:30 AM. Come ready for worship, the Word, fellowship, and a community seeking to grow in faith together.</p></div><aside class="card p-7"><h2 class="text-2xl font-bold text-wine-dark">Sunday Worship</h2><p class="mt-4">{site.service}</p><p class="mt-2">{site.address}</p><p class="mt-6"><strong>Phone:</strong> {site.phone}<br/><strong>Email:</strong> {site.email}</p><a class="btn btn-primary mt-6" href={site.directions} target="_blank" rel="noopener noreferrer">Get directions</a></aside></div></section>
+<BaseLayout title="Plan Your Visit | Word of Faith Church of God, Neptune NJ" description={`Visiting Word of Faith Church of God in Neptune, NJ? Sunday Worship is ${site.service.replace('Sundays • ', 'at ')} at ${site.address}. Get directions, save the date, and let us know you're coming.`}>
+<section class="cross-grid border-b border-wine/10 py-16 sm:py-20"><div class="container-shell grid gap-10 lg:grid-cols-[1.1fr_.9fr] lg:items-center">
+  <div class="reveal">
+    <p class="eyebrow">Plan your visit</p>
+    <h1 class="mt-3 font-display text-5xl font-bold text-wine-dark sm:text-6xl">We'd be glad to worship with you.</h1>
+    <p class="mt-6 text-lg leading-8 text-stone-700">Sunday worship begins at 11:30 AM. Come ready for worship, the Word, fellowship, and a community seeking to grow in faith together.</p>
+  </div>
+  <aside class="card p-7 sm:p-8" aria-labelledby="sunday-worship">
+    <p class="eyebrow">Join us this Sunday</p>
+    <h2 id="sunday-worship" class="mt-2 font-display text-3xl font-bold text-wine-dark">Sunday Worship</h2>
+    <p class="mt-4 text-lg font-bold text-wine">{site.service}</p>
+    <address class="mt-1 not-italic text-stone-700">{site.address}</address>
+    <div class="mt-6 flex flex-wrap gap-3">
+      <a class="btn btn-primary" href={site.directions} target="_blank" rel="noopener noreferrer">Get directions</a>
+      {sunday && <a class="btn border border-wine/30 text-wine-dark" href={googleAddLink(sunday)} target="_blank" rel="noopener noreferrer">Add to calendar</a>}
+    </div>
+    <p class="mt-6 text-stone-700">Questions? Call <a class={link} href={`tel:${tel}`}>{site.phone}</a> or email <a class={`${link} break-all`} href={`mailto:${site.email}`}>{site.email}</a>.</p>
+  </aside>
+</div></section>
+
+<section class="bg-white py-20 sm:py-24"><div class="container-shell">
+  <p class="eyebrow">Before you come</p>
+  <h2 class="mt-3 font-display text-4xl font-bold text-wine-dark sm:text-5xl">Three simple steps.</h2>
+  <ol class="mt-10 grid gap-5 md:grid-cols-3">
+    <li class="card flex flex-col p-6 sm:p-7">
+      <span class="font-display text-4xl text-gold" aria-hidden="true">01</span>
+      <h3 class="mt-3 font-display text-2xl font-bold text-wine-dark">Plan your route</h3>
+      <p class="mt-3 leading-7 text-stone-700">We meet at {site.address}. Open turn-by-turn directions on your phone before you leave.</p>
+      <a class:list={[link, 'mt-auto pt-5']} href={site.directions} target="_blank" rel="noopener noreferrer">Open in Google Maps →</a>
+    </li>
+    <li class="card flex flex-col p-6 sm:p-7">
+      <span class="font-display text-4xl text-gold" aria-hidden="true">02</span>
+      <h3 class="mt-3 font-display text-2xl font-bold text-wine-dark">Save the date</h3>
+      <p class="mt-3 leading-7 text-stone-700">Add Sunday Worship to your calendar so you get a reminder before service starts.</p>
+      {sunday && <p class="mt-auto flex flex-wrap gap-x-5 gap-y-2 pt-5"><a class={link} href={googleAddLink(sunday)} target="_blank" rel="noopener noreferrer">Google Calendar</a><a class={link} href={`/events/${sunday.id}.ics`} download={icsFileName(sunday)}>Apple / Outlook</a></p>}
+    </li>
+    <li class="card flex flex-col p-6 sm:p-7">
+      <span class="font-display text-4xl text-gold" aria-hidden="true">03</span>
+      <h3 class="mt-3 font-display text-2xl font-bold text-wine-dark">Let us know you're coming</h3>
+      <p class="mt-3 leading-7 text-stone-700">It's not required, but we'd love to welcome you by name. Send a quick note or give us a call.</p>
+      <p class="mt-auto flex flex-wrap gap-x-5 gap-y-2 pt-5"><a class={link} href={visitMail}>Send an email</a><a class={link} href={`tel:${tel}`}>Call {site.phone}</a></p>
+    </li>
+  </ol>
+</div></section>
+
+<section class="bg-sand/55 py-20 sm:py-24"><div class="container-shell grid gap-10 lg:grid-cols-2">
+  <div>
+    <p class="eyebrow">Can't make it Sunday?</p>
+    <h2 class="mt-3 font-display text-4xl font-bold text-wine-dark">Get to know us first.</h2>
+    <p class="mt-5 text-lg leading-8 text-stone-700">Watch a service online, or join a gathering during the week. Then come see us in person when you're ready.</p>
+  </div>
+  <ul class="grid gap-3">
+    <li><a class="group flex items-center justify-between rounded-2xl border border-wine/15 bg-white p-5 transition hover:border-wine/40" href="/media"><span><span class="block text-lg font-bold text-wine-dark">Watch a service</span><span class="text-sm text-stone-600">Sunday services stream live on Facebook.</span></span><span class="text-wine" aria-hidden="true">→</span></a></li>
+    {bibleStudy && <li><a class="group flex items-center justify-between rounded-2xl border border-wine/15 bg-white p-5 transition hover:border-wine/40" href="/events"><span><span class="block text-lg font-bold text-wine-dark">{bibleStudy.label}</span><span class="text-sm text-stone-600">{bibleStudy.schedule} on {bibleStudy.mode}. {bibleStudy.note}</span></span><span class="text-wine" aria-hidden="true">→</span></a></li>}
+    <li><a class="group flex items-center justify-between rounded-2xl border border-wine/15 bg-white p-5 transition hover:border-wine/40" href="/about"><span><span class="block text-lg font-bold text-wine-dark">Meet our pastors</span><span class="text-sm text-stone-600">Bishop and Rev. McKenzie and the story of WOF.</span></span><span class="text-wine" aria-hidden="true">→</span></a></li>
+  </ul>
+</div></section>
 <section id="prayer" class="scroll-mt-24 bg-white py-20"><div class="container-shell grid max-w-5xl gap-10 lg:grid-cols-5">
   <div class="lg:col-span-2">
     <p class="eyebrow">Prayer request</p>
