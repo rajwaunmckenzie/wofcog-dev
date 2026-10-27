@@ -20,7 +20,7 @@ The dev site for **Word of Faith Church of God** (public name: **WOF**), a Pente
 - Virtual Bible Study, Thursdays 6:00 PM, Zoom.
 - Youth Night, every other Friday 7:00 PM, in person.
 - Community Outreach, annually on the second Saturday in August.
-- Channels: Facebook (livestream), YouTube @wordoffaithcog.
+- Channels: Facebook https://www.facebook.com/WOFCOG/ (livestream), YouTube https://www.youtube.com/@wordoffaithcog.
 
 Change facts in `src/data/site.ts`, never hard-code them in pages.
 
