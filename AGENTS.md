@@ -33,7 +33,17 @@ Change facts in `src/data/site.ts`, never hard-code them in pages.
 
 ## Design direction
 
-- Colors: wine `#701D2E`, wine-dark `#46121D`, gold `#C5A253`, sand `#E8DCC7`, cream `#F8F3E9` (Tailwind tokens in `tailwind.config.mjs`).
+- **Official palette** (confirmed by Rajwaun, https://coolors.co/701d2e-46121d-c5a253-e8dcc7-f8f3e9):
+
+  | Token | Hex | RGB | Use |
+  |---|---|---|---|
+  | `wine` | `#701D2E` | 112, 29, 46 | Primary brand, buttons, headings accents |
+  | `wine-dark` | `#46121D` | 70, 18, 29 | Headings, hero and footer backgrounds |
+  | `gold` | `#C5A253` | 197, 162, 83 | Accents, eyebrows on dark, focus rings |
+  | `sand` | `#E8DCC7` | 232, 220, 199 | Soft section backgrounds, hovers |
+  | `cream` | `#F8F3E9` | 248, 243, 233 | Page background |
+
+  The same values live in `tailwind.config.mjs` (Tailwind classes) and as CSS variables in `src/styles/global.css` (`--wine`, etc.). Use those tokens; don't add new brand hues. Transparency is fine as `rgba()` of a palette color or Tailwind opacity (`bg-wine/10`). White and Tailwind's neutral `stone` grays are allowed for body text and cards.
 - Type: Georgia display, Inter body.
 - Inspiration: https://igotthevictory.org/ but at about **6/10 energy**: CSS-led reveals, hover crop/scale, nav feedback, subtle decorative movement. No constant flying or bouncing. Always respect `prefers-reduced-motion`.
 - "Static infrastructure, dynamic experience."
