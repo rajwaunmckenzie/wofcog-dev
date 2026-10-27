@@ -28,3 +28,4 @@ section:hover > img.absolute { transform: scale(1.015); }
 .mobile-nav summary::-webkit-details-marker { display:none; }
 .mobile-nav .menu-close, .mobile-nav[open] .menu-open { display:none; }
 .mobile-nav[open] .menu-close { display:block; }
+[hidden] { display:none !important; }

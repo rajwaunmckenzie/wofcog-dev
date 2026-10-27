@@ -6,7 +6,11 @@
 - Select online giving provider and confirm whether Zelle remains publicly listed.
 - Confirm prayer-request destination, privacy handling, and who receives submissions.
 - Confirm contact-form mailbox.
-- Confirm event/calendar source (Google Calendar or another lightweight CMS).
+- Events calendar: the Events page reads the public iCal feed of the Google Calendar set in `site.calendar.id` (currently `wordoffaithcog@gmail.com`). Until that calendar is made public it shows the confirmed schedule from `site.ts`. To do: confirm the Gmail address, decide whether to use a dedicated "WOF Public Events" calendar instead of the personal primary one, and make it public with "See all event details".
+- The site is static, so new calendar events appear after the next build. Once hosting is set up, schedule a rebuild (e.g. a daily deploy hook) so the calendar stays current.
+- Meeting links (Teams, Zoom, Meet) placed in a public calendar event are visible to anyone. Confirm leadership is fine with that, or keep links out of events and use "Request Zoom link".
+- Confirm the usual length of Sunday Worship and Bible Study; the "Add to calendar" files use a 1-hour placeholder.
+- Confirm Youth Night's starting Friday so it can appear on the calendar fallback.
 - Confirm Google Maps implementation/API requirements; a normal directions link may avoid an API key.
 - Confirm complete public leadership roster and approved biographies.
 - Receive/approve church history text referenced as forthcoming by text message.
