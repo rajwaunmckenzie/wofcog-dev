@@ -54,7 +54,8 @@ const robots = noindex || !indexable ? 'noindex, nofollow' : 'index, follow, max
   <main id="main"><slot /></main>
   <Footer />
   <script is:inline>
-    // Scroll reveals: tag content below the first section, then reveal it as it enters the screen.
+    // Scroll reveals: tag page content, then reveal it as it enters the screen. Page titles (h1)
+    // and the homepage hero (which has its own load animation) stay visible immediately.
     // Runs inline before first paint so nothing flashes. Skipped for reduced motion or old browsers.
     (() => {
       if (!('IntersectionObserver' in window) || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
@@ -65,9 +66,10 @@ const robots = noindex || !indexable ? 'noindex, nofollow' : 'index, follow, max
         ['p, li, .card, article, form, .btn, a.group, dl, figure', 'fade'],
       ];
       const els = [];
-      document.querySelectorAll('main > section:not(:first-child):not([data-events])').forEach((section) => {
+      document.querySelectorAll('main > section:not([data-events])').forEach((section) => {
+        if (section.querySelector('.reveal')) return;
         kinds.forEach(([selector, kind]) => section.querySelectorAll(selector).forEach((el) => {
-          if (el.dataset.reveal || el.closest('[aria-hidden="true"], details, nav')) return;
+          if (el.dataset.reveal || el.closest('[aria-hidden="true"], details, nav, h1')) return;
           el.dataset.reveal = kind;
           els.push(el);
         }));
