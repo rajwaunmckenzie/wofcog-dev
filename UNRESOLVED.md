@@ -1,7 +1,7 @@
 # WOF V3 — Production items still to confirm
 
 - Obtain the official Church of God logo/brand asset and confirm permitted treatment.
-- Confirm Facebook page URL and production livestream/embed workflow.
+- Confirm the livestream workflow: is Sunday streamed to Facebook only, or also YouTube? The Media page embeds the Facebook page timeline and the YouTube uploads playlist (facebook.com/WOFCOG, youtube.com/@wordoffaithcog).
 - Confirm Zoom link publishing policy for Thursday Bible Study (public link vs request/join workflow).
 - Select online giving provider and confirm whether Zelle remains publicly listed.
 - Confirm prayer-request destination, privacy handling, and who receives submissions.
@@ -14,4 +14,3 @@
 - Confirm who maintains the site after launch.
 - Confirm photo permissions and which supplied leadership portraits are approved for publication.
 - Get full-resolution originals of the leadership photos. The supplied files are only 400–600px wide, which looks soft in the full-width homepage hero and on large screens.
-- Confirm the Facebook page URL so Watch/Livestream links can point to it.

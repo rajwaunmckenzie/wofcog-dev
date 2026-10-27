@@ -8,6 +8,9 @@ export const site = {
   url: 'https://wordoffaithcog.com',
   directions: 'https://www.google.com/maps/dir/?api=1&destination=108+Fortunato+Pl,+Neptune,+NJ+07753',
   youtube: 'https://www.youtube.com/@wordoffaithcog',
+  // Public channel ID for @wordoffaithcog; its uploads playlist is the same ID with UU in place of UC.
+  youtubeChannelId: 'UCcD9kABCVnuhhPoIM6dNmlA',
+  facebook: 'https://www.facebook.com/WOFCOG/',
   mission: 'Word of Faith is a Pentecostal-based church that glorifies the Lord Jesus, equips the saints, and evangelizes sinners.',
   nav: [
     ['Home','/'],['About','/about'],['Ministries','/ministries'],['Events','/events'],['Media','/media'],['Give','/give']

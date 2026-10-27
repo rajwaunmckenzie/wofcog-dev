@@ -2,10 +2,11 @@
 import { site } from '../data/site';
 ---
 <footer class="bg-wine-dark py-12 text-cream">
-  <div class="container-shell grid gap-8 md:grid-cols-3">
+  <div class="container-shell grid gap-8 md:grid-cols-4">
     <div><p class="font-display text-2xl font-bold">{site.name}</p><p class="mt-2 text-cream/75">A place to worship, grow in faith, and find community.</p></div>
     <div><p class="font-bold text-gold">Visit</p><p class="mt-2">{site.service}</p><p>{site.address}</p></div>
     <div><p class="font-bold text-gold">Contact</p><p class="mt-2">{site.phone}</p><p>{site.email}</p></div>
+    <div><p class="font-bold text-gold">Follow</p><ul class="mt-2 space-y-1"><li><a class="hover:text-gold" href={site.facebook} target="_blank" rel="noopener">Facebook</a></li><li><a class="hover:text-gold" href={site.youtube} target="_blank" rel="noopener">YouTube</a></li></ul></div>
   </div>
   <div class="container-shell mt-10 border-t border-white/15 pt-5 text-xs text-cream/60">© {new Date().getFullYear()} Word of Faith Church of God.</div>
 </footer>
