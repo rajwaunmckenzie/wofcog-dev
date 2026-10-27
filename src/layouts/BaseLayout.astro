@@ -53,5 +53,43 @@ const robots = noindex || !indexable ? 'noindex, nofollow' : 'index, follow, max
   <Header />
   <main id="main"><slot /></main>
   <Footer />
+  <script is:inline>
+    // Scroll reveals: tag content below the first section, then reveal it as it enters the screen.
+    // Runs inline before first paint so nothing flashes. Skipped for reduced motion or old browsers.
+    (() => {
+      if (!('IntersectionObserver' in window) || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      const kinds = [
+        ['h2, h3, blockquote', 'heading'],
+        ['.eyebrow, p[class*="tracking-["][class*="uppercase"]', 'eyebrow'],
+        ['img, picture, iframe', 'media'],
+        ['p, li, .card, article, form, .btn, a.group, dl, figure', 'fade'],
+      ];
+      const els = [];
+      document.querySelectorAll('main > section:not(:first-child):not([data-events])').forEach((section) => {
+        kinds.forEach(([selector, kind]) => section.querySelectorAll(selector).forEach((el) => {
+          if (el.dataset.reveal || el.closest('[aria-hidden="true"], details, nav')) return;
+          el.dataset.reveal = kind;
+          els.push(el);
+        }));
+      });
+      // Animate the outermost element only, so a card and its text don't animate twice.
+      const targets = els.filter((el) => !el.parentElement.closest('[data-reveal]'));
+      els.forEach((el) => { if (!targets.includes(el)) delete el.dataset.reveal; });
+      const io = new IntersectionObserver((entries) => {
+        let step = 0;
+        entries
+          .filter((e) => e.isIntersecting || e.boundingClientRect.top < 0)
+          .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top || a.boundingClientRect.left - b.boundingClientRect.left)
+          .forEach(({ target }) => {
+            io.unobserve(target);
+            target.style.setProperty('--reveal-delay', Math.min(step++, 5) * 90 + 'ms');
+            target.classList.add('is-revealed');
+            // Hand the element back to its own hover transitions once it has settled.
+            setTimeout(() => { delete target.dataset.reveal; target.classList.remove('is-revealed'); target.style.removeProperty('--reveal-delay'); }, 1600);
+          });
+      }, { rootMargin: '0px 0px -8% 0px', threshold: 0.12 });
+      targets.forEach((el) => io.observe(el));
+    })();
+  </script>
 </body>
 </html>
