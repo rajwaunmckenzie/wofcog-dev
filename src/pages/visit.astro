@@ -7,6 +7,8 @@ const sunday = gatheringEvents().find((e) => e.title === 'Sunday Worship');
 const bibleStudy = site.gatherings.find((g) => g.label === 'Virtual Bible Study');
 const visitMail = `mailto:${site.email}?subject=${encodeURIComponent("I'm planning to visit WOF")}`;
 const link = 'font-bold text-wine underline decoration-gold decoration-2 underline-offset-4';
+// Links that stand on their own (not inside a sentence) also get a full-size tap area on touch screens.
+const action = `${link} tap`;
 ---
 <BaseLayout title="Plan Your Visit | Word of Faith Church of God, Neptune NJ" description={`Visiting Word of Faith Church of God in Neptune, NJ? Sunday Worship is ${site.service.replace('Sundays • ', 'at ')} at ${site.address}. Get directions, save the date, and let us know you're coming.`}>
 <section class="cross-grid border-b border-wine/10 py-16 sm:py-20"><div class="container-shell grid gap-10 lg:grid-cols-[1.1fr_.9fr] lg:items-center">
@@ -39,19 +41,19 @@ const link = 'font-bold text-wine underline decoration-gold decoration-2 underli
       <span class="font-display text-4xl text-gold" aria-hidden="true">01</span>
       <h3 class="mt-3 font-display text-2xl font-bold text-wine-dark">Plan your route</h3>
       <p class="mt-3 leading-7 text-stone-700">We meet at {site.address}. Open turn-by-turn directions on your phone before you leave.</p>
-      <a class:list={[link, 'mt-auto pt-5']} href={site.directions} target="_blank" rel="noopener noreferrer">Open in Google Maps →</a>
+      <a class:list={[link, 'tap mt-auto pt-5']} href={site.directions} target="_blank" rel="noopener noreferrer">Open in Google Maps →</a>
     </li>
     <li class="card flex flex-col p-6 sm:p-7">
       <span class="font-display text-4xl text-gold" aria-hidden="true">02</span>
       <h3 class="mt-3 font-display text-2xl font-bold text-wine-dark">Save the date</h3>
       <p class="mt-3 leading-7 text-stone-700">Add Sunday Worship to your calendar so you get a reminder before service starts.</p>
-      {sunday && <p class="mt-auto flex flex-wrap gap-x-5 gap-y-2 pt-5"><a class={link} href={googleAddLink(sunday)} target="_blank" rel="noopener noreferrer">Google Calendar</a><a class={link} href={`/events/${sunday.id}.ics`} download={icsFileName(sunday)}>Apple / Outlook</a></p>}
+      {sunday && <p class="mt-auto flex flex-wrap gap-x-5 gap-y-2 pt-5"><a class={action} href={googleAddLink(sunday)} target="_blank" rel="noopener noreferrer">Google Calendar</a><a class={action} href={`/events/${sunday.id}.ics`} download={icsFileName(sunday)}>Apple / Outlook</a></p>}
     </li>
     <li class="card flex flex-col p-6 sm:p-7">
       <span class="font-display text-4xl text-gold" aria-hidden="true">03</span>
       <h3 class="mt-3 font-display text-2xl font-bold text-wine-dark">Let us know you're coming</h3>
       <p class="mt-3 leading-7 text-stone-700">It's not required, but we'd love to welcome you by name. Send a quick note or give us a call.</p>
-      <p class="mt-auto flex flex-wrap gap-x-5 gap-y-2 pt-5"><a class={link} href={visitMail}>Send an email</a><a class={link} href={`tel:${tel}`}>Call {site.phone}</a></p>
+      <p class="mt-auto flex flex-wrap gap-x-5 gap-y-2 pt-5"><a class={action} href={visitMail}>Send an email</a><a class={action} href={`tel:${tel}`}>Call {site.phone}</a></p>
     </li>
   </ol>
 </div></section>

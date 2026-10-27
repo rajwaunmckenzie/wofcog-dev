@@ -2,15 +2,16 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { Image } from 'astro:assets';
 import { site } from '../data/site';
-import CogEmblem from '../assets/brand/cog-emblem.svg';
+// Loaded as a separate, cached file (not inlined), cream on a transparent background.
+import cogEmblem from '../assets/brand/cog-emblem-cream.svg?url';
 import leadershipPhoto from '../assets/leadership/bishop-first-lady-green-glasses.jpg';
 ---
 <BaseLayout>
-  <section class="relative isolate min-h-[82vh] overflow-hidden bg-wine-dark text-white">
-    <CogEmblem aria-hidden="true" class="pointer-events-none absolute bottom-6 right-4 h-auto w-[62%] max-w-[420px] text-cream opacity-20 lg:bottom-auto lg:right-[3%] lg:top-1/2 lg:w-[44%] lg:max-w-[760px] lg:-translate-y-1/2 lg:opacity-35" />
+  <section class="relative isolate hero-height overflow-hidden bg-wine-dark text-white">
+    <img src={cogEmblem} alt="" width="498" height="441" decoding="async" class="still pointer-events-none absolute bottom-6 right-4 h-auto w-[62%] max-w-[420px] opacity-20 lg:bottom-auto lg:right-[3%] lg:top-1/2 lg:w-[44%] lg:max-w-[760px] lg:-translate-y-1/2 lg:opacity-35" />
     <div class="absolute inset-0 bg-gradient-to-r from-wine-dark via-wine-dark/90 to-wine-dark/25"></div>
     <div class="absolute inset-0 cross-grid opacity-50"></div>
-    <div class="container-shell relative flex min-h-[82vh] items-center py-20">
+    <div class="container-shell relative flex hero-height items-center py-20">
       <div class="reveal max-w-4xl">
         <p class="text-xs font-black uppercase tracking-[.22em] text-gold">Neptune, New Jersey • Sunday 11:30 AM</p>
         <h1 class="mt-6 font-display text-[clamp(3.7rem,8vw,7.8rem)] font-bold leading-[.86] tracking-[-.05em]">A place for<br/><em class="font-normal text-gold">faith to grow.</em></h1>
@@ -18,13 +19,13 @@ import leadershipPhoto from '../assets/leadership/bishop-first-lady-green-glasse
         <div class="mt-9 flex flex-wrap gap-3"><a class="btn btn-light" href="/visit">Plan Your Visit</a><a class="btn btn-outline-light" href="/media">Watch Online</a><a class="btn btn-outline-light" href="/prayer">Request Prayer</a></div>
       </div>
     </div>
-    <a href="#welcome" class="absolute bottom-8 right-8 hidden text-xs font-black uppercase tracking-[.2em] text-white/70 md:block">Discover WOF ↓</a>
+    <a href="#welcome" class="tap absolute bottom-8 right-8 hidden text-xs font-black uppercase tracking-[.2em] text-white/70 md:block">Discover WOF ↓</a>
   </section>
 
   <section id="welcome" class="bg-cream py-20 sm:py-28">
     <div class="container-shell grid gap-12 lg:grid-cols-[.72fr_1.28fr] lg:items-end">
       <div><p class="eyebrow">Welcome to WOF</p><h2 class="mt-4 font-display text-4xl font-bold leading-tight text-wine-dark sm:text-6xl">Come as a visitor.<br/><span class="text-wine">Grow as family.</span></h2></div>
-      <div class="border-l-2 border-gold pl-7 text-lg leading-8 text-stone-700"><p>Word of Faith is a Pentecostal church centered on worship, Scripture, fellowship, and service. Our story began with a small gathering of believers in a living room, and God has been growing this family ever since. Whether you are beginning your faith journey or looking for a church home, we invite you to experience WOF in person.</p><a href="/about#story" class="mt-5 inline-block font-black text-wine underline decoration-gold decoration-2 underline-offset-4">Read our story →</a></div>
+      <div class="border-l-2 border-gold pl-7 text-lg leading-8 text-stone-700"><p>Word of Faith is a Pentecostal church centered on worship, Scripture, fellowship, and service. Our story began with a small gathering of believers in a living room, and God has been growing this family ever since. Whether you are beginning your faith journey or looking for a church home, we invite you to experience WOF in person.</p><a href="/about#story" class="tap mt-5 inline-block font-black text-wine underline decoration-gold decoration-2 underline-offset-4">Read our story →</a></div>
     </div>
   </section>
 
@@ -35,7 +36,7 @@ import leadershipPhoto from '../assets/leadership/bishop-first-lady-green-glasse
     </div>
   </section>
 
-  <section class="bg-white py-20 sm:py-28"><div class="container-shell"><div class="flex flex-wrap items-end justify-between gap-5"><div><p class="eyebrow">Gather with us</p><h2 class="mt-3 font-display text-5xl font-bold text-wine-dark">There's a place for you here.</h2></div><a href="/events" class="font-black text-wine underline decoration-gold decoration-2 underline-offset-4">See events →</a></div>
+  <section class="bg-white py-20 sm:py-28"><div class="container-shell"><div class="flex flex-wrap items-end justify-between gap-5"><div><p class="eyebrow">Gather with us</p><h2 class="mt-3 font-display text-5xl font-bold text-wine-dark">There's a place for you here.</h2></div><a href="/events" class="tap font-black text-wine underline decoration-gold decoration-2 underline-offset-4">See events →</a></div>
     <div class="mt-10 divide-y divide-wine/15 border-y border-wine/15">{site.gatherings.map((item,i) => <article class="grid gap-3 py-7 md:grid-cols-[70px_1fr_1fr] md:items-center"><span class="font-display text-3xl text-gold">0{i+1}</span><h3 class="font-display text-2xl font-bold text-wine-dark">{item.label}</h3><div class="md:text-right"><p class="font-bold text-wine">{item.schedule}</p><p class="text-sm text-stone-500">{item.mode}</p></div></article>)}</div>
   </div></section>
 

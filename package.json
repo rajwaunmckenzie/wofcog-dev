@@ -16,5 +16,12 @@
   },
   "engines": {
     "node": ">=22.23.4"
-  }
+  },
+  "browserslist": [
+    "defaults",
+    "iOS >= 15",
+    "Safari >= 15",
+    "Samsung >= 18",
+    "Firefox ESR"
+  ]
 }

@@ -50,7 +50,7 @@ const ways = tithely ? 'online, by Zelle, or in person' : 'by Zelle or in person
       <p class="mt-3 leading-7 text-stone-700">Give your tithes and offerings during Sunday Worship.</p>
       <p class="mt-4 text-lg font-bold text-wine">{site.service}</p>
       <address class="mt-1 not-italic text-stone-700">{site.address}</address>
-      <p class="mt-auto pt-6"><a class={link} href={site.directions} target="_blank" rel="noopener noreferrer">Get directions →</a></p>
+      <p class="mt-auto pt-6"><a class={`${link} tap`} href={site.directions} target="_blank" rel="noopener noreferrer">Get directions →</a></p>
     </article>
   </div>
   <p class="mt-10 text-stone-700">Questions about giving? Call <a class={link} href={`tel:${tel}`}>{site.phone}</a> or email <a class={`${link} break-all`} href={`mailto:${site.email}?subject=${encodeURIComponent('Question about giving')}`}>{site.email}</a>.</p>

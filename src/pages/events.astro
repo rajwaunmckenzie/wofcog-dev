@@ -144,14 +144,14 @@ const buildTime = Date.now();
                     )}
                     {ev.description && (
                       <p class="mt-3 line-clamp-4 whitespace-pre-line break-words text-sm leading-6 text-stone-600">
-                        {segments(ev.description).map((part, i) => (i % 2 ? <a class="text-wine underline" href={part} target="_blank" rel="noopener noreferrer">{part}</a> : part))}
+                        {segments(ev.description).map((part, i) => (i % 2 ? <a class="tap text-wine underline" href={part} target="_blank" rel="noopener noreferrer">{part}</a> : part))}
                       </p>
                     )}
                     <div class="mt-4 flex flex-wrap gap-2">
                       {ev.join && <a class="btn btn-primary min-h-[40px] px-4 py-2 text-sm" href={ev.join.url} target="_blank" rel="noopener noreferrer">{joinLabel(ev)}</a>}
                       {!ev.join && ev.location === 'Zoom' && <a class="btn btn-primary min-h-[40px] px-4 py-2 text-sm" href={`mailto:${site.email}?subject=${encodeURIComponent(`Zoom link for ${ev.title}`)}`}>Request Zoom link</a>}
-                      <a class="btn min-h-[40px] border border-wine/25 px-4 py-2 text-sm text-wine-dark" href={googleAddLink(ev)} target="_blank" rel="noopener noreferrer">Add to Google Calendar</a>
-                      <a class="btn min-h-[40px] border border-wine/25 px-4 py-2 text-sm text-wine-dark" href={`/events/${ev.id}.ics`} download={icsFileName(ev)}>Download .ics</a>
+                      <a class="btn border border-wine/25 px-4 py-2 text-sm text-wine-dark" href={googleAddLink(ev)} target="_blank" rel="noopener noreferrer">Add to Google Calendar</a>
+                      <a class="btn border border-wine/25 px-4 py-2 text-sm text-wine-dark" href={`/events/${ev.id}.ics`} download={icsFileName(ev)}>Download .ics</a>
                     </div>
                   </div>
                 </article>
@@ -183,11 +183,11 @@ const buildTime = Date.now();
               <div class="mt-auto flex flex-wrap gap-x-4 gap-y-1 pt-5 text-sm font-semibold">
                 {ev ? (
                   <>
-                    <a class="text-wine underline" href={googleAddLink(ev)} target="_blank" rel="noopener noreferrer">Add to Google</a>
-                    <a class="text-wine underline" href={`/events/${ev.id}.ics`} download={icsFileName(ev)}>.ics</a>
+                    <a class="tap text-wine underline" href={googleAddLink(ev)} target="_blank" rel="noopener noreferrer">Add to Google</a>
+                    <a class="tap text-wine underline" href={`/events/${ev.id}.ics`} download={icsFileName(ev)}>Apple / Outlook</a>
                   </>
                 ) : (
-                  <a class="text-wine underline" href={phoneHref}>Call for dates</a>
+                  <a class="tap text-wine underline" href={phoneHref}>Call for dates</a>
                 )}
               </div>
             </article>
@@ -207,12 +207,12 @@ const buildTime = Date.now();
 
 <style>
   .cal-nav { display:inline-grid; place-items:center; min-width:40px; height:40px; border-radius:999px; color:var(--wine-dark); transition:background .2s ease; }
-  .cal-nav:hover:not(:disabled) { background:rgba(232,220,199,.7); }
+  @media (hover:hover) { .cal-nav:hover:not(:disabled) { background:rgba(232,220,199,.7); } }
   .cal-nav:disabled { opacity:.35; cursor:default; }
   .cal-day { display:flex; flex-direction:column; align-items:center; min-height:3rem; padding:.35rem .2rem; border-radius:.9rem; font-size:.9rem; color:#57534e; }
   @media (min-width:640px) { .cal-day { min-height:5.25rem; align-items:stretch; padding:.45rem; } .cal-num { align-self:flex-start; } }
   .cal-has { background:rgba(232,220,199,.45); color:var(--wine-dark); font-weight:700; cursor:pointer; transition:background .2s ease, transform .2s ease, box-shadow .2s ease; }
-  .cal-has:hover { background:rgba(232,220,199,.9); transform:translateY(-1px); }
+  @media (hover:hover) { .cal-has:hover { background:rgba(232,220,199,.9); transform:translateY(-1px); } }
   .cal-has[aria-pressed="true"] { background:var(--wine); color:white; box-shadow:0 10px 24px -14px rgba(70,18,29,.8); }
   .cal-has[aria-pressed="true"] .cal-chip { background:rgba(255,255,255,.16); color:white; border-color:transparent; }
   .cal-num { display:grid; place-items:center; width:1.75rem; height:1.75rem; border-radius:999px; }
@@ -221,7 +221,10 @@ const buildTime = Date.now();
   .cal-chip { display:block; overflow:hidden; white-space:nowrap; text-overflow:ellipsis; border-left:3px solid var(--wine); background:white; border-radius:.35rem; padding:.1rem .35rem; font-size:.68rem; font-weight:700; text-align:left; }
   .cal-chip-online { border-left-color:var(--gold); }
   .filter-chip { border:1px solid rgba(112,29,46,.25); border-radius:999px; padding:.45rem 1rem; font-size:.85rem; font-weight:800; color:var(--wine-dark); transition:background .2s ease,color .2s ease; }
-  .filter-chip:hover { background:rgba(232,220,199,.7); }
+  @media (hover:hover) { .filter-chip:hover { background:rgba(232,220,199,.7); } }
+  /* Touch screens get full-size 44px controls. Hover tints above apply only where a real pointer
+     can hover, so a tapped button doesn't stay tinted. */
+  @media (pointer:coarse) { .cal-nav { min-width:44px; height:44px; } .filter-chip { min-height:44px; } }
   .filter-chip[aria-pressed="true"] { background:var(--wine-dark); border-color:var(--wine-dark); color:white; }
 </style>
 

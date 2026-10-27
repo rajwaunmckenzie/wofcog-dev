@@ -37,7 +37,7 @@ const facebookEmbed = `https://www.facebook.com/plugins/page.php?${new URLSearch
           <h2 class="mt-2 font-display text-3xl font-bold text-wine-dark">Messages & livestreams</h2>
           <p class="mt-3 text-stone-700">Watch recent messages, catch a past livestream, or join us live on <a class="font-bold text-wine underline decoration-gold underline-offset-4" href={site.youtube} target="_blank" rel="noopener">@wordoffaithcog</a>.</p>
           <div class="mt-5 flex flex-wrap gap-2" role="group" aria-label="Choose what to watch">
-            {views.map((v, i) => <button type="button" class="yt-view rounded-full border border-wine/20 px-4 py-2 text-sm font-bold text-wine-dark transition hover:border-gold aria-pressed:border-wine aria-pressed:bg-wine aria-pressed:text-white" aria-pressed={i === 0 ? 'true' : 'false'} data-src={v.src} data-key={v.key}>{v.label}</button>)}
+            {views.map((v, i) => <button type="button" class="yt-view tap rounded-full border border-wine/20 px-4 py-2 text-sm font-bold text-wine-dark transition hover:border-gold aria-pressed:border-wine aria-pressed:bg-wine aria-pressed:text-white" aria-pressed={i === 0 ? 'true' : 'false'} data-src={v.src} data-key={v.key}>{v.label}</button>)}
           </div>
           <p class="yt-live-note mt-3 hidden text-sm text-stone-600">If we're not live right now, the player will say so. Sunday services also stream on <a class="font-bold text-wine underline decoration-gold underline-offset-4" href={site.facebook} target="_blank" rel="noopener">Facebook</a>.</p>
         </div>
