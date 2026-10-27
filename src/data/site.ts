@@ -5,6 +5,8 @@ export interface Gathering {
   /** Used to place the gathering on the Events calendar while the Google feed isn't live. */
   repeat?: { weekly?: number; yearly?: { month: number; nth: number; weekday: number }; time?: string; minutes?: number };
   note?: string;
+  /** One line on what the gathering is, shown on the Events page. */
+  about?: string;
 }
 
 export const site = {
@@ -28,8 +30,10 @@ export const site = {
   denomination: { name: 'Church of God', url: 'https://churchofgod.org', declarationOfFaith: 'https://churchofgod.org/beliefs/declaration-of-faith/' },
   description: 'Word of Faith Church of God (WOF) is a Pentecostal church in Neptune, NJ. Join us for Sunday Worship at 11:30 AM at 108 Fortunato Pl.',
   mission: 'Word of Faith is a Pentecostal-based church that glorifies the Lord Jesus, equips the saints, and evangelizes sinners.',
+  // Main menu, in visitor-journey order. Plan Your Visit is a separate button in the header.
+  // Ministries live on the Events page; /ministries forwards there (public/_redirects).
   nav: [
-    ['Home','/'],['About','/about'],['Ministries','/ministries'],['Events','/events'],['Media','/media'],['Give','/give']
+    ['Home','/'],['About Us','/about'],['Events','/events'],['Watch','/media'],['Prayer','/prayer'],['Give','/give']
   ],
   // Public Google Calendar that feeds the Events page (read at build time, no API key).
   // The ID is the owning Gmail address, or "...@group.calendar.google.com" for a secondary calendar.
@@ -40,8 +44,8 @@ export const site = {
   // weekday: 0 = Sunday … 6 = Saturday. Youth Night has no `repeat` because its starting Friday isn't confirmed.
   gatherings: [
     { label: 'Sunday Worship', schedule: 'Sundays • 11:30 AM', mode: 'In person', repeat: { weekly: 0, time: '11:30' } },
-    { label: 'Virtual Bible Study', schedule: 'Thursdays • 6:00 PM', mode: 'Zoom', repeat: { weekly: 4, time: '18:00' }, note: 'Contact the church for the Zoom link.' },
-    { label: 'Youth Night', schedule: 'Every other Friday • 7:00 PM', mode: 'In person' },
-    { label: 'Community Outreach', schedule: 'Second Saturday in August', mode: 'Annual', repeat: { yearly: { month: 8, nth: 2, weekday: 6 } } },
+    { label: 'Virtual Bible Study', schedule: 'Thursdays • 6:00 PM', mode: 'Zoom', repeat: { weekly: 4, time: '18:00' }, about: 'A place to learn Scripture and grow together.', note: 'Contact the church for the Zoom link.' },
+    { label: 'Youth Night', schedule: 'Every other Friday • 7:00 PM', mode: 'In person', about: 'At the church. Age details to be confirmed.' },
+    { label: 'Community Outreach', schedule: 'Second Saturday in August', mode: 'Annual', repeat: { yearly: { month: 8, nth: 2, weekday: 6 } }, about: 'Serving and giving back to our community.' },
   ] as Gathering[]
 };

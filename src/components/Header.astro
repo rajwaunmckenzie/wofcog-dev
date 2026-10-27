@@ -1,28 +1,54 @@
 ---
 import { site } from '../data/site';
+import { icons, navIcons } from '../lib/icons';
 const path = Astro.url.pathname.replace(/\.html$/, '').replace(/(.)\/$/, '$1');
+const tel = site.phone.replace(/[^0-9]/g, '');
+const time = site.service.replace(/^Sundays\s*•\s*/, '');
 ---
+<!-- When and where, on every page, for visitors who only need the basics. -->
+<div class="bg-wine-dark text-cream">
+  <div class="container-shell flex min-h-[40px] items-center justify-between gap-4 py-1.5 text-[.8rem] font-semibold sm:text-sm">
+    <p class="flex items-center gap-2"><svg class="h-4 w-4 shrink-0 text-gold" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d={icons.clock}/></svg><span>Sunday Worship · <span class="whitespace-nowrap">{time}</span><span class="hidden md:inline"> · {site.address}</span></span></p>
+    <p class="flex shrink-0 items-center gap-4">
+      <a class="inline-flex items-center gap-1.5 underline decoration-gold/60 underline-offset-4 hover:text-gold" href={site.directions} target="_blank" rel="noopener noreferrer"><svg class="h-4 w-4 text-gold" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d={icons.visit}/></svg>Directions</a>
+      <a class="inline-flex items-center gap-1.5 underline decoration-gold/60 underline-offset-4 hover:text-gold" href={`tel:${tel}`}><svg class="h-4 w-4 text-gold" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d={icons.phone}/></svg>Call<span class="hidden lg:inline">&nbsp;{site.phone}</span></a>
+    </p>
+  </div>
+</div>
 <header class="sticky top-0 z-50 border-b border-wine/10 bg-cream/95 backdrop-blur-xl">
   <div class="container-shell flex min-h-[76px] items-center justify-between gap-5">
     <a href="/" class="flex items-center gap-3 font-bold text-wine-dark" aria-label="Word of Faith home">
       <span class="grid h-11 w-11 place-items-center rounded-full bg-wine text-xs font-black tracking-wider text-white ring-2 ring-gold/60">WOF</span>
       <span class="hidden leading-tight sm:block">Word of Faith<span class="block text-[.68rem] font-extrabold uppercase tracking-[.15em] text-wine">Church of God</span></span>
     </a>
-    <nav aria-label="Main navigation" class="hidden lg:block"><ul class="flex items-center gap-6 text-sm font-bold">
+    <nav aria-label="Main navigation" class="hidden lg:block"><ul class="flex items-center gap-6 text-[.95rem] font-bold">
       {site.nav.map(([label,href]) => <li><a class:list={["nav-link py-2 transition-colors hover:text-wine", path === href && "text-wine"]} href={href} aria-current={path === href ? 'page' : undefined}>{label}</a></li>)}
     </ul></nav>
     <div class="flex items-center gap-3">
       <a class="btn btn-primary text-sm" href="/visit">Plan Your Visit</a>
       <details class="mobile-nav relative lg:hidden">
-        <summary class="grid h-11 w-11 cursor-pointer list-none place-items-center rounded-full border border-wine/20 text-wine-dark" aria-label="Open menu">
+        <summary class="flex h-11 cursor-pointer list-none items-center gap-2 rounded-full border border-wine/20 px-4 font-bold text-wine-dark" aria-label="Menu">
           <svg class="menu-open h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
           <svg class="menu-close h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+          <span class="text-sm" aria-hidden="true">Menu</span>
         </summary>
-        <nav aria-label="Mobile navigation" class="absolute right-0 top-14 w-64 rounded-2xl border border-wine/10 bg-cream p-3 shadow-2xl"><ul class="grid text-base font-bold">
-          {site.nav.map(([label,href]) => <li><a class:list={["block rounded-xl px-4 py-3 transition hover:bg-sand/60", path === href ? "bg-sand/60 text-wine" : "text-wine-dark"]} href={href} aria-current={path === href ? 'page' : undefined}>{label}</a></li>)}
-          <li><a class="block rounded-xl px-4 py-3 text-wine-dark transition hover:bg-sand/60" href="/visit">Plan Your Visit</a></li>
-        </ul></nav>
+        <nav aria-label="Mobile navigation" class="absolute right-0 top-14 w-72 max-w-[calc(100vw-2rem)] rounded-2xl border border-wine/10 bg-cream p-3 shadow-2xl">
+          <a class="btn btn-primary w-full justify-center" href="/visit">Plan Your Visit</a>
+          <ul class="mt-2 grid text-base font-bold">
+            {site.nav.map(([label,href]) => <li><a class:list={["flex items-center gap-3 rounded-xl px-4 py-3 transition hover:bg-sand/60", path === href ? "bg-sand/60 text-wine" : "text-wine-dark"]} href={href} aria-current={path === href ? 'page' : undefined}><svg class="h-5 w-5 shrink-0 text-wine" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d={navIcons[href]}/></svg>{label}</a></li>)}
+          </ul>
+          <div class="mt-2 grid grid-cols-2 gap-2 border-t border-wine/10 pt-3 text-sm font-bold">
+            <a class="flex items-center justify-center gap-2 rounded-xl border border-wine/20 px-3 py-3 text-wine-dark hover:bg-sand/60" href={`tel:${tel}`}><svg class="h-4 w-4 text-wine" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d={icons.phone}/></svg>Call</a>
+            <a class="flex items-center justify-center gap-2 rounded-xl border border-wine/20 px-3 py-3 text-wine-dark hover:bg-sand/60" href={site.directions} target="_blank" rel="noopener noreferrer"><svg class="h-4 w-4 text-wine" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d={icons.visit}/></svg>Directions</a>
+          </div>
+        </nav>
       </details>
     </div>
   </div>
 </header>
+<script>
+  // Close the phone menu on Escape or a tap outside it.
+  const menu = document.querySelector<HTMLDetailsElement>('.mobile-nav');
+  document.addEventListener('click', (e) => { if (menu?.open && !menu.contains(e.target as Node)) menu.open = false; });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && menu?.open) { menu.open = false; menu.querySelector('summary')?.focus(); } });
+</script>

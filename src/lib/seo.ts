@@ -22,7 +22,7 @@ export const origin = (
 ).replace(/\/$/, '');
 
 /** Public pages, for the sitemap. */
-export const pages = ['/', '/visit', '/about', '/ministries', '/events', '/media', '/give'];
+export const pages = ['/', '/visit', '/about', '/events', '/media', '/prayer', '/give'];
 
 const DAYS = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
