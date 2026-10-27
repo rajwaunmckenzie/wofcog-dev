@@ -1,6 +1,6 @@
 # WOF V3 — Production items still to confirm
 
-- Obtain the official Church of God logo/brand asset and confirm permitted treatment.
+- Confirm the Church of God globe emblem may be used (now in the homepage hero as a faded cream SVG traced from the supplied image) and whether the denomination requires a specific color or treatment.
 - Confirm the livestream workflow: is Sunday streamed to Facebook only, or also YouTube? The Media page embeds the Facebook page timeline and the YouTube uploads playlist (facebook.com/WOFCOG, youtube.com/@wordoffaithcog).
 - Confirm Zoom link publishing policy for Thursday Bible Study (public link vs request/join workflow).
 - Select online giving provider and confirm whether Zelle remains publicly listed.

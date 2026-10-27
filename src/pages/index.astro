@@ -2,12 +2,12 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { Image } from 'astro:assets';
 import { site } from '../data/site';
-import heroPhoto from '../assets/leadership/bishop-first-lady-white-wide.jpg';
+import CogEmblem from '../assets/brand/cog-emblem.svg';
 import leadershipPhoto from '../assets/leadership/bishop-first-lady-green-glasses.jpg';
 ---
 <BaseLayout>
   <section class="relative isolate min-h-[82vh] overflow-hidden bg-wine-dark text-white">
-    <Image src={heroPhoto} alt="" loading="eager" fetchpriority="high" class="absolute inset-0 h-full w-full object-cover object-[70%_30%] opacity-35" />
+    <CogEmblem aria-hidden="true" class="pointer-events-none absolute bottom-6 right-4 h-auto w-[62%] max-w-[420px] text-cream opacity-20 lg:bottom-auto lg:right-[3%] lg:top-1/2 lg:w-[44%] lg:max-w-[760px] lg:-translate-y-1/2 lg:opacity-35" />
     <div class="absolute inset-0 bg-gradient-to-r from-wine-dark via-wine-dark/90 to-wine-dark/25"></div>
     <div class="absolute inset-0 cross-grid opacity-50"></div>
     <div class="container-shell relative flex min-h-[82vh] items-center py-20">
