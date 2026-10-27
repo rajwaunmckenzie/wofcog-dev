@@ -1,0 +1,26 @@
+# Rebuilds the Netlify site every morning so the Events page picks up new
+# Google Calendar events. The build hook URL is stored as the repository
+# secret NETLIFY_BUILD_HOOK_URL (Settings > Secrets and variables > Actions).
+name: Daily calendar rebuild
+
+on:
+  schedule:
+    - cron: '0 9 * * *' # 09:00 UTC = 4–5 AM Eastern
+  workflow_dispatch:
+
+permissions: {}
+
+jobs:
+  rebuild:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger Netlify build hook
+        env:
+          HOOK: ${{ secrets.NETLIFY_BUILD_HOOK_URL }}
+        run: |
+          if [ -z "$HOOK" ]; then
+            echo "NETLIFY_BUILD_HOOK_URL is not set; skipping."
+            exit 0
+          fi
+          curl -fsS -X POST -d '{}' "$HOOK" > /dev/null
+          echo "Build triggered."

@@ -7,7 +7,7 @@
 - Confirm prayer-request destination, privacy handling, and who receives submissions.
 - Confirm contact-form mailbox.
 - Events calendar: the Events page reads the public iCal feed of the Google Calendar set in `site.calendar.id` (currently `wordoffaithcog@gmail.com`). Until that calendar is made public it shows the confirmed schedule from `site.ts`. To do: confirm the Gmail address, decide whether to use a dedicated "WOF Public Events" calendar instead of the personal primary one, and make it public with "See all event details".
-- The site is static, so new calendar events appear after the next build. Once hosting is set up, schedule a rebuild (e.g. a daily deploy hook) so the calendar stays current.
+- The site is static, so new calendar events appear after the next build. `.github/workflows/rebuild-calendar.yml` triggers a Netlify rebuild daily once the `NETLIFY_BUILD_HOOK_URL` repository secret is set.
 - Meeting links (Teams, Zoom, Meet) placed in a public calendar event are visible to anyone. Confirm leadership is fine with that, or keep links out of events and use "Request Zoom link".
 - Confirm the usual length of Sunday Worship and Bible Study; the "Add to calendar" files use a 1-hour placeholder.
 - Confirm Youth Night's starting Friday so it can appear on the calendar fallback.
