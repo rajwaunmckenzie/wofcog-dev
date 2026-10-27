@@ -37,7 +37,7 @@ const id = encodeURIComponent(site.calendar.id);
 export const feedUrl = process.env.CALENDAR_ICS_URL || `https://calendar.google.com/calendar/ical/${id}/public/basic.ics`;
 export const calendarLinks = {
   view: `https://calendar.google.com/calendar/embed?src=${id}&ctz=${encodeURIComponent(TZ)}`,
-  google: `https://calendar.google.com/calendar/render?cid=${id}`,
+  google: `https://calendar.google.com/calendar/u/0?cid=${Buffer.from(site.calendar.id).toString('base64').replace(/=+$/, '')}`,
   webcal: `webcal://calendar.google.com/calendar/ical/${id}/public/basic.ics`,
 };
 

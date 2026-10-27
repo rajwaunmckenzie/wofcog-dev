@@ -24,7 +24,7 @@ export const site = {
   // Public Google Calendar that feeds the Events page (read at build time, no API key).
   // The ID is the owning Gmail address, or "...@group.calendar.google.com" for a secondary calendar.
   calendar: {
-    id: 'wordoffaithcog@gmail.com',
+    id: '078c2db4212fedab1a91bc6fbcd6cbdf48cba4bb210264b08189a13ce0ec092d@group.calendar.google.com',
     timeZone: 'America/New_York',
   },
   // weekday: 0 = Sunday … 6 = Saturday. Youth Night has no `repeat` because its starting Friday isn't confirmed.
